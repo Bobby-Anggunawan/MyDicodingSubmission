@@ -1,5 +1,6 @@
 package id.chainlizard.githubsearch.UI
 
+import android.app.Activity
 import android.content.Context
 import android.os.Bundle
 import android.util.Log
@@ -7,6 +8,7 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.view.inputmethod.InputMethodManager
 import android.widget.LinearLayout
 import android.widget.SearchView
 import android.widget.SearchView.OnQueryTextListener
@@ -33,6 +35,7 @@ class SearchFragment : Fragment() {
 
     lateinit var myRecyclerView: RecyclerView
     lateinit var mySpinKit: SpinKitView
+    lateinit var mySearch: SearchView
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -43,20 +46,21 @@ class SearchFragment : Fragment() {
         val model: Search by viewModels()
         myRecyclerView = root.findViewById(R.id.user_list)
         mySpinKit = root.findViewById(R.id.spin_kit)
+        mySearch = root.findViewById(R.id.search_bar)
         val mySprite = CubeGrid()
         mySpinKit.setIndeterminateDrawable(mySprite)
         val alist = arrayListOf<Search_List.RowData>()
         SetAdapter(alist)
 
         //view model
-        model.getUsers().observe(requireActivity(), Observer<ArrayList<Search_List.RowData>>{ users ->
+        model.getUsers(Search.jsonType.follow).observe(requireActivity(), Observer<ArrayList<Search_List.RowData>>{ users ->
             alist.clear()
             alist.addAll(users)
             mySpinKit.visibility = View.INVISIBLE
             myRecyclerView.adapter?.notifyDataSetChanged()
         })
         //view
-        root.findViewById<SearchView>(R.id.search_bar).setOnQueryTextListener(object: OnQueryTextListener{
+        mySearch.setOnQueryTextListener(object: OnQueryTextListener{
             override fun onQueryTextSubmit(query: String?): Boolean {
                 return false
             }
@@ -66,7 +70,7 @@ class SearchFragment : Fragment() {
                     myRecyclerView.adapter!!.notifyDataSetChanged()
                     mySpinKit.visibility = View.VISIBLE
                     GlobalScope.launch(Dispatchers.Default){
-                        query?.let { model.loadUsers("https://api.github.com/search/users?q="+it) }
+                        query?.let { model.loadUsers(Search.jsonType.search,"https://api.github.com/search/users?q="+it) }
                     }
                 }
                 return true
@@ -87,7 +91,14 @@ class SearchFragment : Fragment() {
                 putString("UserName", it.username)
                 apply()
             }
+            context?.let { it1 -> closeSoftKeyboard(it1, mySearch) }
             MainActivity.navController.navigate(R.id.fragment_detail)
         }
+    }
+
+    fun closeSoftKeyboard(context: Context, v: View) {
+        val iMm = context.getSystemService(Activity.INPUT_METHOD_SERVICE) as InputMethodManager
+        iMm.hideSoftInputFromWindow(v.windowToken, 0)
+        v.clearFocus()
     }
 }

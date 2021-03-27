@@ -1,5 +1,6 @@
 package id.chainlizard.githubsearch.ViewModel
 
+import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -79,6 +80,27 @@ class Detail : ViewModel() {
             userDetail.add(Detail_List.RowData(user.twitter!!, Detail_List.JenisField.twitter))
         }
         user_detail?.postValue(userDetail)
+    }
+
+
+    fun detailToArray(user: DetailFragment.User): ArrayList<Detail_List.RowData>{
+        val ret = arrayListOf<Detail_List.RowData>()
+        if(user.company != "null"){
+            ret.add(Detail_List.RowData(user.company.toString(), Detail_List.JenisField.company))
+        }
+        if(user.blog != "null" && user.blog!!.isNotEmpty()){
+            ret.add(Detail_List.RowData(user.blog.toString(), Detail_List.JenisField.blog))
+        }
+        if(user.location != "null"){
+            ret.add(Detail_List.RowData(user.location.toString(), Detail_List.JenisField.location))
+        }
+        if(user.email != "null"){
+            ret.add(Detail_List.RowData(user.email.toString(), Detail_List.JenisField.email))
+        }
+        if(user.twitter != "null"){
+            ret.add(Detail_List.RowData(user.twitter.toString(), Detail_List.JenisField.twitter))
+        }
+        return ret
     }
 
 }
