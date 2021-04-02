@@ -18,7 +18,6 @@
             android:layout_width="match_parent"
             android:layout_height="?attr/actionBarSize"
             app:title="Github"
-            app:menu="@menu/top_app_bar"
             app:navigationIcon="@drawable/ic_arrow_back_white_18dp"
             style="@style/Widget.MaterialComponents.Toolbar.Primary"
             />
@@ -40,25 +39,33 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 app:layout_constraintTop_toTopOf="parent"
-                android:layout_marginStart="10dp"
-                android:layout_marginEnd="10dp"
+                android:layout_marginStart="20dp"
+                android:layout_marginEnd="20dp"
                 android:id="@+id/linear"
-                app:cardCornerRadius="10dp">
+                app:cardCornerRadius="15dp">
 
                 <androidx.constraintlayout.widget.ConstraintLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content">
 
-                    <com.elyeproj.loaderviewlibrary.LoaderImageView
-                        android:id="@+id/detail_avatar"
-                        android:layout_width="200dp"
-                        android:layout_height="200dp"
+                    <com.google.android.material.card.MaterialCardView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
                         app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toTopOf="parent"
-                        android:layout_marginTop="10dp"
-                        android:layout_marginStart="10dp"
-                        android:layout_marginBottom="10dp"/>
+                        android:layout_marginTop="15dp"
+                        android:layout_marginStart="15dp"
+                        android:layout_marginBottom="15dp"
+                        app:cardCornerRadius="15dp">
+
+                        <com.elyeproj.loaderviewlibrary.LoaderImageView
+                            android:id="@+id/detail_avatar"
+                            android:layout_width="180dp"
+                            android:layout_height="180dp"/>
+
+                    </com.google.android.material.card.MaterialCardView>
+
 
                     <LinearLayout
                         android:id="@+id/linearLayout"
@@ -70,23 +77,21 @@
                         app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintTop_toTopOf="parent"
-                        android:layout_marginTop="10dp"
-                        android:layout_marginEnd="10dp"
-                        android:layout_marginBottom="10dp">
+                        android:layout_marginEnd="15dp">
 
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="Repository"
+                            android:text="@string/repository"
                             android:textColor="@color/black"
-                            android:textSize="20dp" />
+                            android:textSize="17dp" />
 
                         <com.elyeproj.loaderviewlibrary.LoaderTextView
                             android:id="@+id/repo"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:textAlignment="center"
-                            android:textSize="20dp" />
+                            android:textSize="17dp" />
 
                         <View
                             android:layout_width="match_parent"
@@ -100,16 +105,16 @@
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="Follower"
+                            android:text="@string/follower"
                             android:textColor="@color/black"
-                            android:textSize="20dp" />
+                            android:textSize="17dp" />
 
                         <com.elyeproj.loaderviewlibrary.LoaderTextView
                             android:id="@+id/follower"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:textAlignment="center"
-                            android:textSize="20dp" />
+                            android:textSize="17dp" />
 
                         <View
                             android:layout_width="match_parent"
@@ -123,16 +128,16 @@
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="Following"
+                            android:text="@string/following"
                             android:textColor="@color/black"
-                            android:textSize="20dp" />
+                            android:textSize="17dp" />
 
                         <com.elyeproj.loaderviewlibrary.LoaderTextView
                             android:id="@+id/following"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:textAlignment="center"
-                            android:textSize="20dp" />
+                            android:textSize="17dp" />
                     </LinearLayout>
                 </androidx.constraintlayout.widget.ConstraintLayout>
             </androidx.cardview.widget.CardView>
@@ -208,7 +213,7 @@
 
             <fragment
                 android:id="@+id/fragment2"
-                android:name="id.chainlizard.githubsearch.UI.Follow.MainFragment"
+                android:name="id.chainlizard.githubsearch.UI.Follow.ContainerFollowFragment"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent" />
         </LinearLayout>

@@ -4,103 +4,65 @@ import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import com.google.android.material.snackbar.Snackbar
+import com.google.gson.Gson
 import id.chainlizard.githubsearch.Adapter.Detail_List
-import id.chainlizard.githubsearch.Adapter.Search_List
+import id.chainlizard.githubsearch.MainActivity
 import id.chainlizard.githubsearch.Networking
+import id.chainlizard.githubsearch.TypeList
 import id.chainlizard.githubsearch.UI.DetailFragment
 import kotlinx.coroutines.*
 import org.json.JSONObject
 
 class Detail : ViewModel() {
-    private var user: MutableLiveData<DetailFragment.User>? = null //menampung keseluruhan detail user
-    private var user_detail: MutableLiveData<ArrayList<Detail_List.RowData>>? = null //hanya menampung data yang dibawah nama
+    data class Info(
+        var usr: TypeList.User,                     //info user keseluruhan
+        var detail: ArrayList<Detail_List.RowData>  //hanya menampung detail user(list dibawah nama)
+    )
+    private var user: MutableLiveData<Info>? = null //menampung keseluruhan detail user
 
-    fun getUser(url: String): LiveData<DetailFragment.User>{
+    fun getUser(url: String): LiveData<Info>{
         if(user == null){
-            user = MutableLiveData<DetailFragment.User>()
+            user = MutableLiveData()
             GlobalScope.launch(Dispatchers.Default){
                 loadUser(url)
             }
         }
-        return user as MutableLiveData<DetailFragment.User>
+        return user as MutableLiveData<Info>
     }
 
     fun loadUser(url: String){
-        var textJSON: String = ""
-        runBlocking {
-            val getFromApi = async(context = Dispatchers.IO) { Networking.getJSON(url) }
-            textJSON = getFromApi.await()
+        try{
+            var textJSON: String = ""
+            runBlocking {
+                val getFromApi = async(context = Dispatchers.IO) { Networking.getJSON(url) }
+                textJSON = getFromApi.await()
+            }
+            val gson = Gson()
+
+            val obj = gson.fromJson(textJSON, TypeList.User::class.java) as TypeList.User
+            //load detail list
+            val userDetail = arrayListOf<Detail_List.RowData>()
+            if(!obj.company.isNullOrEmpty()){
+                userDetail.add(Detail_List.RowData(obj.company!!, Detail_List.JenisField.company))
+            }
+            if(!obj.blog.isNullOrEmpty()){
+                userDetail.add(Detail_List.RowData(obj.blog!!, Detail_List.JenisField.blog))
+            }
+            if(!obj.location.isNullOrEmpty()){
+                userDetail.add(Detail_List.RowData(obj.location!!, Detail_List.JenisField.location))
+            }
+            if(!obj.email.isNullOrEmpty()){
+                userDetail.add(Detail_List.RowData(obj.email!!, Detail_List.JenisField.email))
+            }
+            if(!obj.twitter_username.isNullOrEmpty()){
+                userDetail.add(Detail_List.RowData(obj.twitter_username!!, Detail_List.JenisField.twitter))
+            }
+
+            user?.postValue(Info(obj, userDetail))
         }
-        val jsonObject = JSONObject(textJSON);
-        val ret = DetailFragment.User(
-                jsonObject.getString("avatar_url"),
-                jsonObject.getString("login"),
-                jsonObject.getString("name"),
-                jsonObject.getInt("followers"),
-                jsonObject.getInt("following"),
-                jsonObject.getInt("public_repos"),
-                jsonObject.getString("company"),
-                jsonObject.getString("blog"),
-                jsonObject.getString("location"),
-                jsonObject.getString("email"),
-                jsonObject.getString("bio"),
-                jsonObject.getString("twitter_username")
-        )
-        user?.postValue(ret)
-        loadUsersDetail(ret)
+        catch (e: Exception){
+            Snackbar.make(MainActivity.mainLayout, e.message.toString(), Snackbar.LENGTH_LONG).show()
+        }
     }
-
-    fun getUsersDetail(): LiveData<ArrayList<Detail_List.RowData>> {
-        if (user_detail == null) {
-            user_detail = MutableLiveData<ArrayList<Detail_List.RowData>>()
-            //initial
-            loadUsersDetail(DetailFragment.User("", "", "", 0, 0, 0, "-", null, "-", null, null, null))
-        }
-        return user_detail as MutableLiveData<ArrayList<Detail_List.RowData>>
-    }
-
-    fun loadUsersDetail(user: DetailFragment.User) {
-        val userDetail = arrayListOf<Detail_List.RowData>()
-        if(!user.bio.isNullOrBlank()){
-            userDetail.add(Detail_List.RowData(user.bio!!, Detail_List.JenisField.bio))
-        }
-        if(!user.company.isNullOrBlank()){
-            userDetail.add(Detail_List.RowData(user.company!!, Detail_List.JenisField.company))
-        }
-        if(!user.blog.isNullOrBlank()){
-            userDetail.add(Detail_List.RowData(user.blog!!, Detail_List.JenisField.blog))
-        }
-        if(!user.location.isNullOrBlank()){
-            userDetail.add(Detail_List.RowData(user.location!!, Detail_List.JenisField.location))
-        }
-        if(!user.email.isNullOrBlank()){
-            userDetail.add(Detail_List.RowData(user.email!!, Detail_List.JenisField.email))
-        }
-        if(!user.twitter.isNullOrBlank()){
-            userDetail.add(Detail_List.RowData(user.twitter!!, Detail_List.JenisField.twitter))
-        }
-        user_detail?.postValue(userDetail)
-    }
-
-
-    fun detailToArray(user: DetailFragment.User): ArrayList<Detail_List.RowData>{
-        val ret = arrayListOf<Detail_List.RowData>()
-        if(user.company != "null"){
-            ret.add(Detail_List.RowData(user.company.toString(), Detail_List.JenisField.company))
-        }
-        if(user.blog != "null" && user.blog!!.isNotEmpty()){
-            ret.add(Detail_List.RowData(user.blog.toString(), Detail_List.JenisField.blog))
-        }
-        if(user.location != "null"){
-            ret.add(Detail_List.RowData(user.location.toString(), Detail_List.JenisField.location))
-        }
-        if(user.email != "null"){
-            ret.add(Detail_List.RowData(user.email.toString(), Detail_List.JenisField.email))
-        }
-        if(user.twitter != "null"){
-            ret.add(Detail_List.RowData(user.twitter.toString(), Detail_List.JenisField.twitter))
-        }
-        return ret
-    }
-
 }

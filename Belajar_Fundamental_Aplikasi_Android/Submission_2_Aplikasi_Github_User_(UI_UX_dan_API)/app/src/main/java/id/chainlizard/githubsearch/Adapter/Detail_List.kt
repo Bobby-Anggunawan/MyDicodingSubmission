@@ -10,7 +10,6 @@ import com.bumptech.glide.Glide
 import id.chainlizard.githubsearch.R
 
 class Detail_List(val Data: ArrayList<RowData>): RecyclerView.Adapter<Detail_List.ItemData_Holder>() {
-    //ini untuk menampung data type yang dipakai tiap row
     enum class JenisField{
         company, blog, location, email, bio, twitter
     }
@@ -19,7 +18,7 @@ class Detail_List(val Data: ArrayList<RowData>): RecyclerView.Adapter<Detail_Lis
             var jenis: JenisField
     )
 
-    var onItemClick: ((Detail_List.RowData) -> Unit)? = null
+    var onItemClick: ((RowData) -> Unit)? = null
 
     inner class ItemData_Holder(ItemLayout: View) : RecyclerView.ViewHolder(ItemLayout) {
         var logo: ImageView = ItemLayout.findViewById(R.id.detail_icon)

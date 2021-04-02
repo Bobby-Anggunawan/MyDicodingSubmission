@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">GithubCari</string>
+    <string name="search_hint">Cari User</string>
+    <string name="repository">Repositori</string>
+    <string name="follower">Pengikut</string>
+    <string name="following">Mengikuti</string>
+    <string name="icon">icon</string>
+    <string name="avatar">Foto Profil</string>
+</resources>

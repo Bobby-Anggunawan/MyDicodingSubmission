@@ -1,55 +1,61 @@
 package id.chainlizard.githubsearch.ViewModel
 
-import android.app.AlertDialog
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.google.android.material.snackbar.Snackbar
+import com.google.gson.Gson
+import com.google.gson.reflect.TypeToken
 import id.chainlizard.githubsearch.Adapter.Search_List
+import id.chainlizard.githubsearch.MainActivity
 import id.chainlizard.githubsearch.Networking
+import id.chainlizard.githubsearch.TypeList
 import kotlinx.coroutines.*
-import org.json.JSONArray
-import org.json.JSONObject
+import java.lang.reflect.Type
+
 
 class Search : ViewModel() {
-    private var users: MutableLiveData<ArrayList<Search_List.RowData>>? = null
+    private var users: MutableLiveData<ArrayList<TypeList.User>>? = null
     enum class jsonType{
         search, follow
     }
 
-    fun getUsers(jenis: jsonType, url: String = "https://api.github.com/users"): LiveData<ArrayList<Search_List.RowData>> {
+    fun getUsers(jenis: jsonType, url: String = "https://api.github.com/users"): LiveData<ArrayList<TypeList.User>> {
         if (users == null) {
-            users = MutableLiveData<ArrayList<Search_List.RowData>>()
+            users = MutableLiveData()
             GlobalScope.launch(Dispatchers.Default){
                 loadUsers(jenis, url)
             }
         }
-        return users as MutableLiveData<ArrayList<Search_List.RowData>>
+        return users as MutableLiveData<ArrayList<TypeList.User>>
     }
 
 
     fun loadUsers(jenis: jsonType, url: String) {
-        var textJSON: String = ""
-        runBlocking {
-            val getFromApi = async(context = Dispatchers.IO) { Networking.getJSON(url) }
-            textJSON = getFromApi.await()
-        }
-        val kembalian = arrayListOf<Search_List.RowData>()
-        if(jenis == jsonType.search){
-            val jsonObject = JSONObject(textJSON);
-            val items = jsonObject.getJSONArray("items")
-            for(x in 0..items.length()-1){
-                val aClass = Search_List.RowData(items.getJSONObject(x).getString("avatar_url"), items.getJSONObject(x).getString("login"))
-                kembalian.add(aClass)
+        try{
+            var textJSON = ""
+            runBlocking {
+                val getFromApi = async(context = Dispatchers.IO) { Networking.getJSON(url) }
+                textJSON = getFromApi.await()
             }
-        }
-        else if(jenis == jsonType.follow){
-            val jsonArr = JSONArray(textJSON)
-            for(x in 0..jsonArr.length()-1){
-                kembalian.add(Search_List.RowData(jsonArr.getJSONObject(x).getString("avatar_url"), jsonArr.getJSONObject(x).getString("login")))
+            val kembalian = arrayListOf<TypeList.User>()
+            val gson = Gson()
+            if(jenis == jsonType.search){
+                val obj = gson.fromJson(textJSON, TypeList.SearchResult::class.java)
+                kembalian.addAll(obj.items)
             }
+            else if(jenis == jsonType.follow){
+                val collectionType = object :
+                    TypeToken<Collection<TypeList.User?>?>() {}.type as Type
+                val obj = gson.fromJson(textJSON, collectionType) as List<TypeList.User>
+                kembalian.addAll(obj)
+            }
+            users?.postValue(kembalian)
         }
-        users?.postValue(kembalian)
+
+        catch(e: Exception){
+            Snackbar.make(MainActivity.mainLayout, e.message.toString(), Snackbar.LENGTH_LONG).show()
+        }
 
     }
 }
