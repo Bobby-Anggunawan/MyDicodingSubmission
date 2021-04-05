@@ -1,43 +1,83 @@
 package id.chainlizard.githubsearch
 
+import android.database.Cursor
+
 object TypeList {
     data class User(
-        var login: String?,
-        var id: Int?,
-        var node_id: String?,
-        var avatar_url: String?,
-        var gravatar_id: String?,
-        var url: String?,
-        var html_url: String?,
-        var followers_url: String?,
-        var following_url: String?,
-        var gists_url: String?,
-        var starred_url: String?,
-        var subscriptions_url: String?,
-        var organizations_url: String?,
-        var repos_url: String?,
-        var events_url: String?,
-        var received_events_url: String?,
-        var type: String?,
-        var site_admin: Boolean?,
-        var name: String?,
-        var company: String?,
-        var blog: String?,
-        var location: String?,
-        var email: String?,
-        var hireable: Boolean?,
-        var bio: String?,
-        var twitter_username: String?,
-        var public_repos: Int?,
-        var public_gists: Int?,
-        var followers: Int?,
-        var following: Int?,
-        var created_at: String?,
-        var updated_at: String?
+        var login: String? = null,
+        var id: Int? = null,
+        var node_id: String? = null,
+        var avatar_url: String? = null,
+        var gravatar_id: String? = null,
+        var url: String? = null,
+        var html_url: String? = null,
+        var followers_url: String? = null,
+        var following_url: String? = null,
+        var gists_url: String? = null,
+        var starred_url: String? = null,
+        var subscriptions_url: String? = null,
+        var organizations_url: String? = null,
+        var repos_url: String? = null,
+        var events_url: String? = null,
+        var received_events_url: String? = null,
+        var type: String? = null,
+        var site_admin: Boolean? = null,
+        var name: String? = null,
+        var company: String? = null,
+        var blog: String? = null,
+        var location: String? = null,
+        var email: String? = null,
+        var hireable: Boolean? = null,
+        var bio: String? = null,
+        var twitter_username: String? = null,
+        var public_repos: Int? = null,
+        var public_gists: Int? = null,
+        var followers: Int? = null,
+        var following: Int? = null,
+        var created_at: String? = null,
+        var updated_at: String? = null
     )
     data class SearchResult(
         var total_count: Int = 0,
         var incomplete_results: Boolean = false,
         var items: List<User> = listOf()
     )
+
+    fun mapCursorToUser(data: Cursor?): ArrayList<User>{
+        val ret = arrayListOf<User>()
+        data?.apply {
+            while (moveToNext()) {
+                val username = getString(getColumnIndexOrThrow("username"))
+                val avatar = getString(getColumnIndexOrThrow("avatar_url"))
+                val name = getString(getColumnIndexOrThrow("name"))
+                val company = getString(getColumnIndexOrThrow("company"))
+                val blog = getString(getColumnIndexOrThrow("blog"))
+                val location = getString(getColumnIndexOrThrow("location"))
+                val email = getString(getColumnIndexOrThrow("email"))
+                val bio = getString(getColumnIndexOrThrow("bio"))
+                val twitter_username = getString(getColumnIndexOrThrow("twitter_username"))
+                val public_repos = getInt(getColumnIndexOrThrow("public_repos"))
+                val followers = getInt(getColumnIndexOrThrow("followers"))
+                val following = getInt(getColumnIndexOrThrow("following"))
+
+
+                val aUser = TypeList.User()
+                aUser.login = username
+                aUser.avatar_url = avatar
+                aUser.name = name
+                aUser.company = company
+                aUser.blog = blog
+                aUser.location = location
+                aUser.email = email
+                aUser.bio = bio
+                aUser.twitter_username = twitter_username
+                aUser.public_repos = public_repos
+                aUser.followers = followers
+                aUser.following = following
+
+                ret.add(aUser)
+            }
+        }
+        return ret
+    }
 }

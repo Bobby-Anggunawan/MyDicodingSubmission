@@ -7,4 +7,9 @@
     <string name="following">Mengikuti</string>
     <string name="icon">icon</string>
     <string name="avatar">Foto Profil</string>
+    <string name="favorite">Favorit</string>
+    <string name="favorite_desc">Tombol untuk menampilkan daftar favorit</string>
+    <string name="setting">Pengaturan</string>
+    <string name="setting_desc">Tombol untuk membuka halaman pengaturan</string>
+    <string name="add_favorite_desc">Tambah user ini ke favorit</string>
 </resources>

@@ -8,11 +8,23 @@
     <fragment
         android:id="@+id/fragment_search"
         android:name="id.chainlizard.githubsearch.UI.SearchFragment"
-        android:label="Login"
+        android:label="Search"
         tools:layout="@layout/fragment_search"/>
     <fragment
         android:id="@+id/fragment_detail"
         android:name="id.chainlizard.githubsearch.UI.DetailFragment"
-        android:label="Register"
+        android:label="Detail"
         tools:layout="@layout/fragment_detail"/>
+
+    <fragment
+        android:id="@+id/fragment_favorite"
+        android:name="id.chainlizard.githubsearch.UI.FavoriteFragment"
+        android:label="Favorite"
+        tools:layout="@layout/fragment_favorite"/>
+
+    <fragment
+        android:id="@+id/fragment_setting"
+        android:name="id.chainlizard.githubsearch.UI.SettingFragment"
+        android:label="Setting"
+        tools:layout="@layout/fragment_setting"/>
 </navigation>

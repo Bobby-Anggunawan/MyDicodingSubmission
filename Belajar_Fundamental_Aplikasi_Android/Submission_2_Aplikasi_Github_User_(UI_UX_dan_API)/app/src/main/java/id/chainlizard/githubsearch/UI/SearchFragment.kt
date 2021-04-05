@@ -16,6 +16,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.github.ybq.android.spinkit.SpinKitView
 import com.github.ybq.android.spinkit.style.CubeGrid
+import com.google.android.material.appbar.MaterialToolbar
 import id.chainlizard.githubsearch.Adapter.Search_List
 import id.chainlizard.githubsearch.MainActivity
 import id.chainlizard.githubsearch.R
@@ -42,10 +43,23 @@ class SearchFragment : Fragment() {
         mySearch = root.findViewById(R.id.search_bar)
         val mySprite = CubeGrid()
         mySpinKit.setIndeterminateDrawable(mySprite)
+        root.findViewById<MaterialToolbar>(R.id.topAppBar).setOnMenuItemClickListener { menuItem ->
+            when (menuItem.itemId) {
+                R.id.favorite -> {
+                    MainActivity.navController.navigate(R.id.fragment_favorite)
+                    true
+                }
+                R.id.setting -> {
+                    // Handle search icon press
+                    true
+                }
+                else -> false
+            }
+        }
         val alist = arrayListOf<TypeList.User>()
         SetAdapter(alist)
 
-        model.getUsers(Search.jsonType.follow).observe(requireActivity(), Observer<ArrayList<TypeList.User>>{ users ->
+        model.getUsers(Search.jsonType.follow).observe(requireActivity(), { users ->
             alist.clear()
             alist.addAll(users)
             mySpinKit.visibility = View.INVISIBLE

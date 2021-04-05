@@ -39,7 +39,7 @@ class FollowerFragment : Fragment() {
         val sharedPref = activity?.getPreferences(Context.MODE_PRIVATE)
         val usrName = sharedPref?.getString("UserName", "bobby").toString()
 
-        model.getUsers(Search.jsonType.follow, "https://api.github.com/users/$usrName/followers").observe(requireActivity(), Observer<ArrayList<TypeList.User>>{ users ->
+        model.getUsers(Search.jsonType.follow, "https://api.github.com/users/$usrName/followers").observe(requireActivity(), { users ->
             alist.clear()
             alist.addAll(users)
             mySpinKit.visibility = View.INVISIBLE

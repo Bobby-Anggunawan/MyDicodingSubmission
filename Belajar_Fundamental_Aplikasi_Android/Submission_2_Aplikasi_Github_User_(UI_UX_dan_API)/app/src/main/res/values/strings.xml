@@ -6,4 +6,11 @@
     <string name="following">Following</string>
     <string name="icon">icon</string>
     <string name="avatar">Profile Image</string>
+    <string name="favorite">Favorite</string>
+    <string name="favorite_desc">Button to show favorite list</string>
+    <string name="setting">Setting</string>
+    <string name="setting_desc">Button to open setting page</string>
+    <string name="add_favorite_desc">Add this user to favorite</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>

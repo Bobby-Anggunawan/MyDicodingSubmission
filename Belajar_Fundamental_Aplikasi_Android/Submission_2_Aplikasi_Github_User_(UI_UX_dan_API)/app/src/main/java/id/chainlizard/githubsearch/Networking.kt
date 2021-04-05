@@ -6,7 +6,7 @@ import cz.msebera.android.httpclient.Header
 
 object Networking {
     fun getJSON(url: String): String{
-        var result: String = ""
+        var result = ""
         val client = SyncHttpClient()
         client.addHeader("User-Agent", "request")
         client.addHeader("Authorization", "token ${BuildConfig.githubApiToken}")
