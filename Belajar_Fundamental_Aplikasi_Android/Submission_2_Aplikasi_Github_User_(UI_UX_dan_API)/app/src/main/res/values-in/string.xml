@@ -12,4 +12,6 @@
     <string name="setting">Pengaturan</string>
     <string name="setting_desc">Tombol untuk membuka halaman pengaturan</string>
     <string name="add_favorite_desc">Tambah user ini ke favorit</string>
+    <string name="daily_reminder">Pengingat harian</string>
+    <string name="daily_reminder_every">Pengingat harian setiap jam</string>
 </resources>

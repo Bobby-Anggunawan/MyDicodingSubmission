@@ -44,8 +44,7 @@ class DetailFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         val root = inflater.inflate(R.layout.fragment_detail, container, false)
-        val sharedPref = activity?.getPreferences(Context.MODE_PRIVATE)
-        val usrName = sharedPref?.getString("UserName", "bobby")
+        val usrName = TypeList.readSharedPreference(requireActivity(), "UserName", "bobby")
 
         myRecyclerView = root.findViewById(R.id.more_detail)
         mySpinKit = root.findViewById(R.id.spin_kit)

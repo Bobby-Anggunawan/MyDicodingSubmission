@@ -50,7 +50,7 @@ class SearchFragment : Fragment() {
                     true
                 }
                 R.id.setting -> {
-                    // Handle search icon press
+                    MainActivity.navController.navigate(R.id.fragment_setting)
                     true
                 }
                 else -> false
@@ -91,11 +91,7 @@ class SearchFragment : Fragment() {
         myRecyclerView.adapter = ListAdapter
 
         ListAdapter.onItemClick = {
-            val sharedPref = activity?.getPreferences(Context.MODE_PRIVATE)
-            with (sharedPref!!.edit()) {
-                putString("UserName", it.login)
-                apply()
-            }
+            TypeList.writeSharedPreference(requireActivity(), "UserName", it.login.toString())
             context?.let { it1 -> closeSoftKeyboard(it1, mySearch) }
             MainActivity.navController.navigate(R.id.fragment_detail)
         }

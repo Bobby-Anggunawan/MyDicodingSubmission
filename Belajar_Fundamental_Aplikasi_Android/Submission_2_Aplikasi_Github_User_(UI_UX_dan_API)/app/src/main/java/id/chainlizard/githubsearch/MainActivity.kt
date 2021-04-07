@@ -1,18 +1,19 @@
 package id.chainlizard.githubsearch
 
+import android.content.Intent
 import android.database.ContentObserver
 import android.os.Bundle
 import android.os.Handler
 import android.os.HandlerThread
 import androidx.appcompat.app.AppCompatActivity
 import androidx.coordinatorlayout.widget.CoordinatorLayout
-import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.NavController
 import androidx.navigation.findNavController
-import id.chainlizard.githubsearch.UI.DetailFragment
 import id.chainlizard.githubsearch.UI.FavoriteFragment
 import id.chainlizard.githubsearch.ViewModel.Favorite
+import java.util.*
+
 
 class MainActivity : AppCompatActivity() {
     companion object{
@@ -25,7 +26,9 @@ class MainActivity : AppCompatActivity() {
         navController = findNavController(R.id.nav_host_fragment)
         mainLayout = findViewById(R.id.mainLayout)
 
-        FavoriteFragment.model = ViewModelProvider(this, ViewModelProvider.NewInstanceFactory()).get(Favorite::class.java)
+        FavoriteFragment.model = ViewModelProvider(this, ViewModelProvider.NewInstanceFactory()).get(
+            Favorite::class.java
+        )
         //content provider
         val handlerThread = HandlerThread("DataObserver")
         handlerThread.start()
