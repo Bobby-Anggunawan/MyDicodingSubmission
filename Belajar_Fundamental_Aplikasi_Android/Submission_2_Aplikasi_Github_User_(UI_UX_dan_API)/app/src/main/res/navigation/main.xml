@@ -7,24 +7,24 @@
 
     <fragment
         android:id="@+id/fragment_search"
-        android:name="id.chainlizard.githubsearch.UI.SearchFragment"
+        android:name="id.chainlizard.githubsearch.UI.Fragment.SearchFragment"
         android:label="Search"
         tools:layout="@layout/fragment_search"/>
     <fragment
         android:id="@+id/fragment_detail"
-        android:name="id.chainlizard.githubsearch.UI.DetailFragment"
+        android:name="id.chainlizard.githubsearch.UI.Fragment.DetailFragment"
         android:label="Detail"
         tools:layout="@layout/fragment_detail"/>
 
     <fragment
         android:id="@+id/fragment_favorite"
-        android:name="id.chainlizard.githubsearch.UI.FavoriteFragment"
+        android:name="id.chainlizard.githubsearch.UI.Fragment.FavoriteFragment"
         android:label="Favorite"
         tools:layout="@layout/fragment_favorite"/>
 
     <fragment
         android:id="@+id/fragment_setting"
-        android:name="id.chainlizard.githubsearch.UI.SettingFragment"
+        android:name="id.chainlizard.githubsearch.UI.Fragment.SettingFragment"
         android:label="Setting"
         tools:layout="@layout/fragment_setting"/>
 </navigation>

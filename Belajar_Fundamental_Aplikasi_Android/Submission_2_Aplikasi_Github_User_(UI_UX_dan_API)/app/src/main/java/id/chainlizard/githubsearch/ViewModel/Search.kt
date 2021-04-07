@@ -6,7 +6,7 @@ import androidx.lifecycle.ViewModel
 import com.google.android.material.snackbar.Snackbar
 import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken
-import id.chainlizard.githubsearch.MainActivity
+import id.chainlizard.githubsearch.UI.MainActivity
 import id.chainlizard.githubsearch.Networking
 import id.chainlizard.githubsearch.TypeList
 import kotlinx.coroutines.*

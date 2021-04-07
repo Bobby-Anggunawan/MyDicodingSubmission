@@ -19,7 +19,7 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.GithubSearch">
 
-        <activity android:name=".TelotetActivity">
+        <activity android:name=".UI.TelotetActivity">
             <intent-filter>
                 <action android:name="android.intent.action.SEND" />
 
@@ -35,7 +35,7 @@
             android:readPermission="id.chainlizard.githubsearch.READ_DATABASE"
             android:writePermission="id.chainlizard.githubsearch.WRITE_DATABASE" />
 
-        <activity android:name=".MainActivity">
+        <activity android:name=".UI.MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

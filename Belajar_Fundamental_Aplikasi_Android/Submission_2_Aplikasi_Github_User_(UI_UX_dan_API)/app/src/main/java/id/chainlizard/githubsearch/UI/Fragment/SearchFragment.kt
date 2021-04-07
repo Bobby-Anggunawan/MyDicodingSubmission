@@ -1,4 +1,4 @@
-package id.chainlizard.githubsearch.UI
+package id.chainlizard.githubsearch.UI.Fragment
 
 import android.app.Activity
 import android.content.Context
@@ -11,16 +11,15 @@ import android.widget.SearchView
 import android.widget.SearchView.OnQueryTextListener
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
-import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.github.ybq.android.spinkit.SpinKitView
 import com.github.ybq.android.spinkit.style.CubeGrid
 import com.google.android.material.appbar.MaterialToolbar
 import id.chainlizard.githubsearch.Adapter.Search_List
-import id.chainlizard.githubsearch.MainActivity
 import id.chainlizard.githubsearch.R
 import id.chainlizard.githubsearch.TypeList
+import id.chainlizard.githubsearch.UI.MainActivity
 import id.chainlizard.githubsearch.ViewModel.Search
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope

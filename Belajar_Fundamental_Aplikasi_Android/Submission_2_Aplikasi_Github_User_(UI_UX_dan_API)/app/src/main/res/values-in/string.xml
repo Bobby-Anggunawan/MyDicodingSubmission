@@ -14,4 +14,8 @@
     <string name="add_favorite_desc">Tambah user ini ke favorit</string>
     <string name="daily_reminder">Pengingat harian</string>
     <string name="daily_reminder_every">Pengingat harian setiap jam</string>
+    <string name="alarm_is_set">Alarm telah diatur</string>
+    <string name="alarm_unset">Alarm telah dibatalkan </string>
+    <string name="swipe_up_to_turn_off_the_alarm">Geser ke atas untuk mematikan alarm</string>
+    <string name="alarms_from_the_githubsearch_app">alarm dari aplikasi GithubSearch</string>
 </resources>

@@ -1,8 +1,6 @@
-package id.chainlizard.githubsearch.UI
+package id.chainlizard.githubsearch.UI.Fragment
 
-import android.content.Context
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -10,7 +8,6 @@ import android.widget.LinearLayout
 import android.widget.TextView
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
-import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
@@ -19,16 +16,10 @@ import com.github.ybq.android.spinkit.style.DoubleBounce
 import com.google.android.material.appbar.MaterialToolbar
 import com.google.android.material.bottomsheet.BottomSheetBehavior
 import com.google.android.material.floatingactionbutton.FloatingActionButton
-import com.google.android.material.snackbar.Snackbar
 import id.chainlizard.githubsearch.Adapter.Detail_List
-import id.chainlizard.githubsearch.Database
-import id.chainlizard.githubsearch.MainActivity
 import id.chainlizard.githubsearch.R
 import id.chainlizard.githubsearch.TypeList
 import id.chainlizard.githubsearch.ViewModel.Detail
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.GlobalScope
-import kotlinx.coroutines.launch
 import java.lang.Exception
 
 

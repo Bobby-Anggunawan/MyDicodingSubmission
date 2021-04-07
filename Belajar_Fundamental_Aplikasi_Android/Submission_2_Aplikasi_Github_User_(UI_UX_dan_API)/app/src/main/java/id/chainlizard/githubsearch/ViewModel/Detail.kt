@@ -1,7 +1,6 @@
 package id.chainlizard.githubsearch.ViewModel
 
 import android.content.Context
-import androidx.core.content.ContentProviderCompat.requireContext
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -9,7 +8,7 @@ import com.google.android.material.snackbar.Snackbar
 import com.google.gson.Gson
 import id.chainlizard.githubsearch.Adapter.Detail_List
 import id.chainlizard.githubsearch.Database
-import id.chainlizard.githubsearch.MainActivity
+import id.chainlizard.githubsearch.UI.MainActivity
 import id.chainlizard.githubsearch.Networking
 import id.chainlizard.githubsearch.TypeList
 import kotlinx.coroutines.*

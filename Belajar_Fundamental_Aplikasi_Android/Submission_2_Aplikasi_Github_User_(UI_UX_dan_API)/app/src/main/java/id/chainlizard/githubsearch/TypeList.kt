@@ -90,11 +90,17 @@ object TypeList {
             apply()
         }
     }
-
     fun writeSharedPreference(activity: Activity, key: String, value: Int){
         val sharedPref = activity.getPreferences(Context.MODE_PRIVATE)
         with (sharedPref!!.edit()) {
             putInt(key, value)
+            apply()
+        }
+    }
+    fun writeSharedPreference(activity: Activity, key: String, value: Boolean){
+        val sharedPref = activity.getPreferences(Context.MODE_PRIVATE)
+        with (sharedPref!!.edit()) {
+            putBoolean(key, value)
             apply()
         }
     }
@@ -106,5 +112,9 @@ object TypeList {
     fun readSharedPreference(activity: Activity, key: String, defaultValue: Int): Int{
         val sharedPref = activity.getPreferences(Context.MODE_PRIVATE)
         return sharedPref.getInt(key, defaultValue)
+    }
+    fun readSharedPreference(activity: Activity, key: String, defaultValue: Boolean): Boolean{
+        val sharedPref = activity.getPreferences(Context.MODE_PRIVATE)
+        return sharedPref.getBoolean(key, defaultValue)
     }
 }

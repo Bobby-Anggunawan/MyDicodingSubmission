@@ -1,6 +1,5 @@
-package id.chainlizard.githubsearch
+package id.chainlizard.githubsearch.UI
 
-import android.content.Intent
 import android.database.ContentObserver
 import android.os.Bundle
 import android.os.Handler
@@ -10,7 +9,9 @@ import androidx.coordinatorlayout.widget.CoordinatorLayout
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.NavController
 import androidx.navigation.findNavController
-import id.chainlizard.githubsearch.UI.FavoriteFragment
+import id.chainlizard.githubsearch.Database
+import id.chainlizard.githubsearch.R
+import id.chainlizard.githubsearch.UI.Fragment.FavoriteFragment
 import id.chainlizard.githubsearch.ViewModel.Favorite
 import java.util.*
 

@@ -3,8 +3,8 @@ package id.chainlizard.githubsearch.Adapter
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import androidx.viewpager2.adapter.FragmentStateAdapter
-import id.chainlizard.githubsearch.UI.Follow.FollowerFragment
-import id.chainlizard.githubsearch.UI.Follow.FollowingFragment
+import id.chainlizard.githubsearch.UI.Fragment.Follow.FollowerFragment
+import id.chainlizard.githubsearch.UI.Fragment.Follow.FollowingFragment
 
 class Follow_Pager(activity: AppCompatActivity) : FragmentStateAdapter(activity) {
 

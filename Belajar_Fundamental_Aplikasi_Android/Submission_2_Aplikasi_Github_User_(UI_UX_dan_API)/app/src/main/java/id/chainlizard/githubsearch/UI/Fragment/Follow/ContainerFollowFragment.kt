@@ -1,4 +1,4 @@
-package id.chainlizard.githubsearch.UI.Follow
+package id.chainlizard.githubsearch.UI.Fragment.Follow
 
 import android.os.Bundle
 import android.view.LayoutInflater

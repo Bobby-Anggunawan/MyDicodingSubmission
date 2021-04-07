@@ -14,4 +14,8 @@
     <string name="daily_reminder">Daily reminder</string>
     <string name="daily_reminder_every">Daily reminder every</string>
     <string name="alarm" translatable="false">Alarm</string>
+    <string name="alarm_is_set">Alarm has been set</string>
+    <string name="alarm_unset">Alarm has been canceled </string>
+    <string name="swipe_up_to_turn_off_the_alarm">Swipe up to turn off the alarm</string>
+    <string name="alarms_from_the_githubsearch_app">Alarms from the GithubSearch app</string>
 </resources>

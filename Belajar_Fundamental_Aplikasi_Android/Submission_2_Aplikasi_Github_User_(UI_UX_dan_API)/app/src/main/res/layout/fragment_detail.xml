@@ -6,7 +6,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    tools:context=".UI.DetailFragment">
+    tools:context=".UI.Fragment.DetailFragment">
 
     <com.google.android.material.appbar.AppBarLayout
         android:layout_width="match_parent"
@@ -228,7 +228,7 @@
 
             <fragment
                 android:id="@+id/fragment2"
-                android:name="id.chainlizard.githubsearch.UI.Follow.ContainerFollowFragment"
+                android:name="id.chainlizard.githubsearch.UI.Fragment.Follow.ContainerFollowFragment"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent" />
         </LinearLayout>
