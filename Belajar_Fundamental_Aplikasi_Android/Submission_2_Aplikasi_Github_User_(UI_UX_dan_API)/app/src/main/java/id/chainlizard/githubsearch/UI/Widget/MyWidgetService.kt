@@ -3,12 +3,13 @@ package id.chainlizard.githubsearch.UI.Widget
 import android.appwidget.AppWidgetManager
 import android.content.Context
 import android.content.Intent
+import android.graphics.Bitmap
 import android.os.Bundle
 import android.widget.RemoteViews
 import android.widget.RemoteViewsService
 import android.widget.RemoteViewsService.RemoteViewsFactory
+import com.bumptech.glide.Glide
 import id.chainlizard.githubsearch.Database
-import id.chainlizard.githubsearch.Networking
 import id.chainlizard.githubsearch.R
 import id.chainlizard.githubsearch.TypeList
 import kotlinx.coroutines.Dispatchers
@@ -28,6 +29,7 @@ internal class StackRemoteViewsFactory(context: Context, intent: Intent) : Remot
     private val mContext: Context
     private val mAppWidgetId: Int
 
+
     init {
         mContext = context
         mAppWidgetId = intent.getIntExtra(AppWidgetManager.EXTRA_APPWIDGET_ID,
@@ -39,15 +41,7 @@ internal class StackRemoteViewsFactory(context: Context, intent: Intent) : Remot
         // for example downloading or creating content etc, should be deferred to onDataSetChanged()
         // or getViewAt(). Taking more than 20 seconds in this call will result in an ANR.
 
-        var storeUser: ArrayList<TypeList.User> = arrayListOf()
-        runBlocking {
-            val getUser = async(context = Dispatchers.IO) { Database.DatabaseHelper.getAllUser(mContext) }
-            storeUser = getUser.await()
-        }
 
-        for (x in 0..storeUser.count()-1) {
-            mMyWidgetItems.add(MyWidgetItem(storeUser[x].login.toString()))
-        }
 
         // We sleep for 3 seconds here to show how the empty view appears in the interim.
         // The empty view is set in the MyWidgetProvider and should be a sibling of the
@@ -75,7 +69,14 @@ internal class StackRemoteViewsFactory(context: Context, intent: Intent) : Remot
         // We construct a remote views item based on our widget item xml file, and set the
         // text based on the position.
         val rv = RemoteViews(mContext.getPackageName(), R.layout.item_widget)
-        rv.setTextViewText(R.id.widget_item, mMyWidgetItems[position].text)
+        rv.setTextViewText(R.id.widget_item, mMyWidgetItems[position].username)
+        val bitmap: Bitmap = Glide.with(mContext)
+                .asBitmap()
+                .load(mMyWidgetItems[position].avatar)
+                .submit(512, 512)
+                .get()
+
+        rv.setImageViewBitmap(R.id.avatar_img, bitmap)
 
         // Next, we set a fill-intent which will be used to fill-in the pending intent template
         // which is set on the collection view in MyWidgetProvider.
@@ -125,5 +126,15 @@ internal class StackRemoteViewsFactory(context: Context, intent: Intent) : Remot
         // from the network, etc., it is ok to do it here, synchronously. The widget will remain
         // in its current state while work is being done here, so you don't need to worry about
         // locking up the widget.
+
+        var storeUser: ArrayList<TypeList.User> = arrayListOf()
+        runBlocking {
+            val getUser = async(Dispatchers.IO) { Database.DatabaseHelper.getAllUser(mContext) }
+            storeUser = getUser.await()
+        }
+
+        for (x in 0..storeUser.count()-1) {
+            mMyWidgetItems.add(MyWidgetItem(storeUser[x].login.toString(), storeUser[x].avatar_url.toString()))
+        }
     }
 }

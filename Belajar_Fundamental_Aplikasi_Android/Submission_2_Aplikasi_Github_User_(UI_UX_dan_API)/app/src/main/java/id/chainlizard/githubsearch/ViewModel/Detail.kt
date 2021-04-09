@@ -1,5 +1,7 @@
 package id.chainlizard.githubsearch.ViewModel
 
+import android.appwidget.AppWidgetManager
+import android.content.ComponentName
 import android.content.Context
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
@@ -8,15 +10,18 @@ import com.google.android.material.snackbar.Snackbar
 import com.google.gson.Gson
 import id.chainlizard.githubsearch.Adapter.Detail_List
 import id.chainlizard.githubsearch.Database
-import id.chainlizard.githubsearch.UI.MainActivity
 import id.chainlizard.githubsearch.Networking
+import id.chainlizard.githubsearch.R
 import id.chainlizard.githubsearch.TypeList
+import id.chainlizard.githubsearch.UI.MainActivity
+import id.chainlizard.githubsearch.UI.Widget.MyWidgetProvider
 import kotlinx.coroutines.*
+
 
 class Detail : ViewModel() {
     data class Info(
-        var usr: TypeList.User,                     //info user keseluruhan
-        var detail: ArrayList<Detail_List.RowData>  //hanya menampung detail user(list dibawah nama)
+            var usr: TypeList.User,                     //info user keseluruhan
+            var detail: ArrayList<Detail_List.RowData>  //hanya menampung detail user(list dibawah nama)
     )
     private var user: MutableLiveData<Info>? = null //menampung keseluruhan detail user
     private var fabState: MutableLiveData<Boolean>? = null
@@ -100,6 +105,10 @@ class Detail : ViewModel() {
             }
             fabState?.postValue(false)
         }
+        val appWidgetManager = AppWidgetManager.getInstance(context)
+        val appWidgetIds = appWidgetManager.getAppWidgetIds(
+                ComponentName(context, MyWidgetProvider::class.java))
+        appWidgetManager.notifyAppWidgetViewDataChanged(appWidgetIds, R.id.stack_view);
     }
 
     fun returnUser(): TypeList.User{
