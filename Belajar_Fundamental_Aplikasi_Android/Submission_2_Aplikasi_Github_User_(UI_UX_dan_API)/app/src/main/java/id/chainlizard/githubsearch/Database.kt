@@ -25,20 +25,26 @@ object Database {
         .appendPath(TABLE_NAME)
         .build()
 
-    @Entity
+    @Entity(tableName = "user")
     data class User(
-        @PrimaryKey val username: String,
-        @ColumnInfo(name = "avatar_url") val avatarUrl: String?,
-        @ColumnInfo(name = "name") val fullName: String?,
-        @ColumnInfo(name = "company") val company: String?,
-        @ColumnInfo(name = "blog") val blog: String?,
-        @ColumnInfo(name = "location") val location: String?,
-        @ColumnInfo(name = "email") val email: String?,
-        @ColumnInfo(name = "bio") val bio: String?,
-        @ColumnInfo(name = "twitter_username") val twitterUsername: String?,
-        @ColumnInfo(name = "public_repos") val repo: Int?,
-        @ColumnInfo(name = "followers") val followers: Int?,
-        @ColumnInfo(name = "following") val following: Int?,
+            @PrimaryKey val username: String,
+            @ColumnInfo(name = "avatar_url") val avatarUrl: String?,
+            @ColumnInfo(name = "name") val fullName: String?,
+            @ColumnInfo(name = "company") val company: String?,
+            @ColumnInfo(name = "blog") val blog: String?,
+            @ColumnInfo(name = "location") val location: String?,
+            @ColumnInfo(name = "email") val email: String?,
+            @ColumnInfo(name = "bio") val bio: String?,
+            @ColumnInfo(name = "twitter_username") val twitterUsername: String?,
+            @ColumnInfo(name = "public_repos") val repo: Int?,
+            @ColumnInfo(name = "followers") val followers: Int?,
+            @ColumnInfo(name = "following") val following: Int?,
+    )
+
+    @Entity(tableName = "widgetdata")
+    data class WidgetData(
+            @PrimaryKey val username: String,
+            @ColumnInfo(name = "avatar", typeAffinity = ColumnInfo.BLOB) val avatar: ByteArray?
     )
 
     @Dao
@@ -53,6 +59,18 @@ object Database {
         fun insert(user: User)
 
         @Query("DELETE FROM user WHERE username = :id")
+        fun deleteById(id: String)
+    }
+
+    @Dao
+    interface WidgetDataDao{
+        @Query("SELECT * FROM widgetdata")
+        fun getAll(): ArrayList<WidgetData>
+
+        @Insert
+        fun insert(user: WidgetData)
+
+        @Query("DELETE FROM widgetdata WHERE username = :id")
         fun deleteById(id: String)
     }
 

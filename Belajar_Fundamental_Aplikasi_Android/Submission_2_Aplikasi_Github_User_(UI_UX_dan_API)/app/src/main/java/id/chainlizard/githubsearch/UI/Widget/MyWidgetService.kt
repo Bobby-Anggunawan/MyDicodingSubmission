@@ -65,7 +65,7 @@ internal class StackRemoteViewsFactory(context: Context, intent: Intent) : Remot
 
         // We construct a remote views item based on our widget item xml file, and set the
         // text based on the position.
-        val rv = RemoteViews(mContext.getPackageName(), R.layout.widget_item)
+        val rv = RemoteViews(mContext.getPackageName(), R.layout.item_widget)
         rv.setTextViewText(R.id.widget_item, mMyWidgetItems[position].text)
 
         // Next, we set a fill-intent which will be used to fill-in the pending intent template
@@ -91,7 +91,7 @@ internal class StackRemoteViewsFactory(context: Context, intent: Intent) : Remot
         return rv
     }
 
-    override fun getLoadingView(): RemoteViews {
+    override fun getLoadingView(): RemoteViews? {
         // You can create a custom loading view (for instance when getViewAt() is slow.) If you
         // return null here, you will get the default loading view.
         return null
