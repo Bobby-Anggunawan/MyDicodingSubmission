@@ -19,4 +19,6 @@
     <string name="swipe_up_to_turn_off_the_alarm">Geser ke atas untuk mematikan alarm</string>
     <string name="alarms_from_the_githubsearch_app">alarm dari aplikasi GithubSearch</string>
     <string name="there_is_no_favorite_user_in_your_database">Tidak ada user favorit di database anda</string>
+    <string name="share">Bagikan</string>
+    <string name="send_user_detail_to_other_app">Bagikan detail user ke aplikasi lain</string>
 </resources>

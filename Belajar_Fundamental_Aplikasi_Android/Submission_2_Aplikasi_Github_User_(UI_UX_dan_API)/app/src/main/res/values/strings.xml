@@ -19,4 +19,6 @@
     <string name="swipe_up_to_turn_off_the_alarm">Swipe up to turn off the alarm</string>
     <string name="alarms_from_the_githubsearch_app">Alarms from the GithubSearch app</string>
     <string name="there_is_no_favorite_user_in_your_database">There is no favorite user in your database</string>
+    <string name="share">Share</string>
+    <string name="send_user_detail_to_other_app">Send user detail to other app</string>
 </resources>

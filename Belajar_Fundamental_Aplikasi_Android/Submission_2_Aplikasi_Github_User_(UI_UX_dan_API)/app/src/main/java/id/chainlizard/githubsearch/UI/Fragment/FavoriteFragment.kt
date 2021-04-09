@@ -8,6 +8,7 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.google.android.material.appbar.MaterialToolbar
 import id.chainlizard.githubsearch.Adapter.Search_List
 import id.chainlizard.githubsearch.R
 import id.chainlizard.githubsearch.TypeList
@@ -26,6 +27,10 @@ class FavoriteFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         val root = inflater.inflate(R.layout.fragment_favorite, container, false)
+
+        root.findViewById<MaterialToolbar>(R.id.topAppBar).setNavigationOnClickListener {
+            requireActivity().onBackPressed()
+        }
 
         myRecyclerView = root.findViewById(R.id.recyclerFavorite)
         val alist = arrayListOf<TypeList.User>()

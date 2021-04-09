@@ -19,6 +19,7 @@
             android:layout_height="?attr/actionBarSize"
             app:title="Github"
             app:navigationIcon="@drawable/ic_arrow_back_white_18dp"
+            app:menu="@menu/detail"
             style="@style/Widget.MaterialComponents.Toolbar.Primary"
             />
 

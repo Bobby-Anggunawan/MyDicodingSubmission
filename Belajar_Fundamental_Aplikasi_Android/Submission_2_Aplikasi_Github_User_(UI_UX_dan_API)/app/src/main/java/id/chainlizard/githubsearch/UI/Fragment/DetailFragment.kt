@@ -1,5 +1,6 @@
 package id.chainlizard.githubsearch.UI.Fragment
 
+import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -19,6 +20,7 @@ import com.google.android.material.floatingactionbutton.FloatingActionButton
 import id.chainlizard.githubsearch.Adapter.Detail_List
 import id.chainlizard.githubsearch.R
 import id.chainlizard.githubsearch.TypeList
+import id.chainlizard.githubsearch.UI.MainActivity
 import id.chainlizard.githubsearch.ViewModel.Detail
 import java.lang.Exception
 
@@ -93,6 +95,30 @@ class DetailFragment : Fragment() {
 
         myFab.setOnClickListener{
             model.fabChangeState(requireContext(), model.returnUser())
+        }
+
+        myToolBar.setOnMenuItemClickListener { menuItem ->
+            when (menuItem.itemId) {
+                R.id.share -> {
+                    val user = model.returnUser()
+                    val sendText = """Name: ${user.name}
+                        |Github username: ${user.login}
+                        |Github follower: ${user.followers}
+                        |Github following: ${user.following}
+                        |Github repository: ${user.public_repos}
+                    """.trimMargin()
+                    val sendIntent: Intent = Intent().apply {
+                        action = Intent.ACTION_SEND
+                        putExtra(Intent.EXTRA_TEXT, sendText)
+                        type = "text/plain"
+                    }
+
+                    val shareIntent = Intent.createChooser(sendIntent, null)
+                    startActivity(shareIntent)
+                    true
+                }
+                else -> false
+            }
         }
 
         return root
