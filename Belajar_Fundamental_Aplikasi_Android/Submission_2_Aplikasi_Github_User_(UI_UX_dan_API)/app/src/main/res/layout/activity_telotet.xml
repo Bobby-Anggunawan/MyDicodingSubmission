@@ -61,9 +61,9 @@
                 android:layout_height="match_parent">
 
                 <ImageView
+                    android:id="@+id/animasiPanah"
                     android:layout_width="50dp"
                     android:layout_height="50dp"
-                    android:src="@drawable/arrow_up"
                     app:layout_constraintBottom_toTopOf="@+id/textView2"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"

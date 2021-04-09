@@ -2,8 +2,10 @@ package id.chainlizard.githubsearch.UI
 
 import android.media.MediaPlayer
 import android.os.Bundle
+import android.widget.ImageView
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
+import com.bumptech.glide.Glide
 import com.daimajia.swipe.SwipeLayout
 import com.daimajia.swipe.SwipeLayout.SwipeListener
 import id.chainlizard.githubsearch.R
@@ -15,7 +17,14 @@ class TelotetActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_telotet)
 
+        val animationArrow = findViewById<ImageView>(R.id.animasiPanah)
+        Glide.with(this)
+                .asGif()
+                .load(R.drawable.arrow_up)
+                .fitCenter()
+                .into(animationArrow)
         val mp = MediaPlayer.create(this, R.raw.woz_standby_loop)
+        mp.isLooping = true
         mp.start()
 
         val myCalendar = Calendar.getInstance()
@@ -54,6 +63,7 @@ class TelotetActivity : AppCompatActivity() {
 
             override fun onStartOpen(layout: SwipeLayout) {}
             override fun onOpen(layout: SwipeLayout) {
+                mp.stop()
                 finish()
             }
 
