@@ -7,7 +7,13 @@ import android.os.Bundle
 import android.widget.RemoteViews
 import android.widget.RemoteViewsService
 import android.widget.RemoteViewsService.RemoteViewsFactory
+import id.chainlizard.githubsearch.Database
+import id.chainlizard.githubsearch.Networking
 import id.chainlizard.githubsearch.R
+import id.chainlizard.githubsearch.TypeList
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.async
+import kotlinx.coroutines.runBlocking
 
 
 class MyWidgetService : RemoteViewsService() {
@@ -18,13 +24,9 @@ class MyWidgetService : RemoteViewsService() {
 
 internal class StackRemoteViewsFactory(context: Context, intent: Intent) : RemoteViewsFactory {
 
-    private val mMyWidgetItems: MutableList<MyWidgetItem> = ArrayList<MyWidgetItem>()
+    private val mMyWidgetItems: MutableList<MyWidgetItem> = ArrayList()
     private val mContext: Context
     private val mAppWidgetId: Int
-    
-    companion object {
-        private const val mCount = 10
-    }
 
     init {
         mContext = context
@@ -36,8 +38,15 @@ internal class StackRemoteViewsFactory(context: Context, intent: Intent) : Remot
         // In onCreate() you setup any connections / cursors to your data source. Heavy lifting,
         // for example downloading or creating content etc, should be deferred to onDataSetChanged()
         // or getViewAt(). Taking more than 20 seconds in this call will result in an ANR.
-        for (i in 0 until mCount) {
-            mMyWidgetItems.add(MyWidgetItem("$i!"))
+
+        var storeUser: ArrayList<TypeList.User> = arrayListOf()
+        runBlocking {
+            val getUser = async(context = Dispatchers.IO) { Database.DatabaseHelper.getAllUser(mContext) }
+            storeUser = getUser.await()
+        }
+
+        for (x in 0..storeUser.count()-1) {
+            mMyWidgetItems.add(MyWidgetItem(storeUser[x].login.toString()))
         }
 
         // We sleep for 3 seconds here to show how the empty view appears in the interim.
@@ -57,7 +66,7 @@ internal class StackRemoteViewsFactory(context: Context, intent: Intent) : Remot
     }
 
     override fun getCount(): Int {
-        return mCount
+        return mMyWidgetItems.count()
     }
 
     override fun getViewAt(position: Int): RemoteViews {

@@ -75,7 +75,7 @@ class SearchFragment : Fragment() {
                     myRecyclerView.adapter!!.notifyDataSetChanged()
                     mySpinKit.visibility = View.VISIBLE
                     GlobalScope.launch(Dispatchers.Default){
-                        query?.let { model.loadUsers(Search.jsonType.search,"https://api.github.com/search/users?q="+it) }
+                        query.let { model.loadUsers(Search.jsonType.search,"https://api.github.com/search/users?q="+it) }
                     }
                 }
                 return true

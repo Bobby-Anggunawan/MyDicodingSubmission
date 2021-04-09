@@ -16,6 +16,6 @@
         android:background="@drawable/widget_item_background"
         android:textColor="#ffffff"
         android:textStyle="bold"
-        android:text="There is no favorite user in your database"
+        android:text="@string/there_is_no_favorite_user_in_your_database"
         android:textSize="20sp" />
 </FrameLayout>

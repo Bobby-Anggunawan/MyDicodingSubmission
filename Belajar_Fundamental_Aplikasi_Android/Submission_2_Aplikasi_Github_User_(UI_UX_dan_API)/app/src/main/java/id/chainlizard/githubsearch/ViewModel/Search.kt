@@ -45,7 +45,7 @@ class Search : ViewModel() {
             }
             else if(jenis == jsonType.follow){
                 val collectionType = object :
-                    TypeToken<Collection<TypeList.User?>?>() {}.type as Type
+                        TypeToken<Collection<TypeList.User?>?>() {}.type as Type
                 val obj = gson.fromJson(textJSON, collectionType) as List<TypeList.User>
                 kembalian.addAll(obj)
             }

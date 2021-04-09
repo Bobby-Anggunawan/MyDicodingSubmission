@@ -41,11 +41,6 @@ object Database {
             @ColumnInfo(name = "following") val following: Int?,
     )
 
-    @Entity(tableName = "widgetdata")
-    data class WidgetData(
-            @PrimaryKey val username: String,
-            @ColumnInfo(name = "avatar", typeAffinity = ColumnInfo.BLOB) val avatar: ByteArray?
-    )
 
     @Dao
     interface UserDao {
@@ -62,17 +57,6 @@ object Database {
         fun deleteById(id: String)
     }
 
-    @Dao
-    interface WidgetDataDao{
-        @Query("SELECT * FROM widgetdata")
-        fun getAll(): ArrayList<WidgetData>
-
-        @Insert
-        fun insert(user: WidgetData)
-
-        @Query("DELETE FROM widgetdata WHERE username = :id")
-        fun deleteById(id: String)
-    }
 
     @Database(entities = arrayOf(User::class), version = 1)
     abstract class AppDatabase : RoomDatabase() {
