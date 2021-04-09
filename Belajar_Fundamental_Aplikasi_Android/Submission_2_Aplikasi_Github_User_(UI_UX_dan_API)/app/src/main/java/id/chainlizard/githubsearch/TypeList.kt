@@ -44,6 +44,10 @@ object TypeList {
         var incomplete_results: Boolean = false,
         var items: List<User> = listOf()
     )
+    data class MyWidgetItem(
+        var username: String,
+        var avatar: String
+    )
 
     fun mapCursorToUser(data: Cursor?): ArrayList<User>{
         val ret = arrayListOf<User>()

@@ -1,0 +1,52 @@
+package id.chainlizard.consumerapp.ViewModel
+
+import androidx.lifecycle.LiveData
+import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.ViewModel
+import com.google.gson.Gson
+import com.google.gson.reflect.TypeToken
+import id.chainlizard.consumerapp.Networking
+import id.chainlizard.consumerapp.TypeList
+import kotlinx.coroutines.*
+import java.lang.reflect.Type
+
+
+class Search : ViewModel() {
+    private var users: MutableLiveData<ArrayList<TypeList.User>>? = null
+    enum class jsonType{
+        search, follow
+    }
+
+    fun getUsers(jenis: jsonType, url: String = "https://api.github.com/users"): LiveData<ArrayList<TypeList.User>> {
+        if (users == null) {
+            users = MutableLiveData()
+            GlobalScope.launch(Dispatchers.Default){
+                loadUsers(jenis, url)
+            }
+        }
+        return users as MutableLiveData<ArrayList<TypeList.User>>
+    }
+
+
+    fun loadUsers(jenis: jsonType, url: String) {
+        var textJSON = ""
+        runBlocking {
+            val getFromApi = async(context = Dispatchers.IO) { Networking.getJSON(url) }
+            textJSON = getFromApi.await()
+        }
+        val kembalian = arrayListOf<TypeList.User>()
+        val gson = Gson()
+        if(jenis == jsonType.search){
+            val obj = gson.fromJson(textJSON, TypeList.SearchResult::class.java)
+            kembalian.addAll(obj.items)
+        }
+        else if(jenis == jsonType.follow){
+            val collectionType = object :
+                TypeToken<Collection<TypeList.User?>?>() {}.type as Type
+            val obj = gson.fromJson(textJSON, collectionType) as List<TypeList.User>
+            kembalian.addAll(obj)
+        }
+        users?.postValue(kembalian)
+
+    }
+}

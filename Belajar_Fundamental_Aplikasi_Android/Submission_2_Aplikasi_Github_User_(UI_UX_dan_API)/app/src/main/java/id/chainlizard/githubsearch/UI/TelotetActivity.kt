@@ -9,7 +9,6 @@ import com.bumptech.glide.Glide
 import com.daimajia.swipe.SwipeLayout
 import com.daimajia.swipe.SwipeLayout.SwipeListener
 import id.chainlizard.githubsearch.R
-import id.chainlizard.githubsearch.TypeList
 import java.util.*
 
 class TelotetActivity : AppCompatActivity() {
@@ -47,19 +46,15 @@ class TelotetActivity : AppCompatActivity() {
         val txt = "$jamStr:$menitStr"
         findViewById<TextView>(R.id.jamDiAlarm).text = txt
 
-        //mengatur swipe layout
+        //mengatur swipe layout(untuk mematikan alarm)
         val mySwipe = findViewById<SwipeLayout>(R.id.mySwipe)
         mySwipe.setShowMode(SwipeLayout.ShowMode.LayDown)
         mySwipe.addDrag(SwipeLayout.DragEdge.Bottom, findViewById(R.id.bottom_wrapper))
 
         mySwipe.addSwipeListener(object : SwipeListener {
-            override fun onClose(layout: SwipeLayout) {
-                //when the SurfaceView totally cover the BottomView.
-            }
+            override fun onClose(layout: SwipeLayout) {}
 
-            override fun onUpdate(layout: SwipeLayout, leftOffset: Int, topOffset: Int) {
-                //you are swiping.
-            }
+            override fun onUpdate(layout: SwipeLayout, leftOffset: Int, topOffset: Int) {}
 
             override fun onStartOpen(layout: SwipeLayout) {}
             override fun onOpen(layout: SwipeLayout) {
@@ -68,9 +63,7 @@ class TelotetActivity : AppCompatActivity() {
             }
 
             override fun onStartClose(layout: SwipeLayout) {}
-            override fun onHandRelease(layout: SwipeLayout, xvel: Float, yvel: Float) {
-                //when user's hand released.
-            }
+            override fun onHandRelease(layout: SwipeLayout, xvel: Float, yvel: Float) {}
         })
     }
 }

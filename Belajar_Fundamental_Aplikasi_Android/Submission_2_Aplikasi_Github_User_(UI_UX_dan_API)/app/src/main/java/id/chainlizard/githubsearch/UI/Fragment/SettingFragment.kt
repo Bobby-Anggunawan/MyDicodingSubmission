@@ -1,18 +1,18 @@
 package id.chainlizard.githubsearch.UI.Fragment
 
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
 import androidx.fragment.app.DialogFragment
+import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
+import com.google.android.material.appbar.MaterialToolbar
 import com.suke.widget.SwitchButton
-import id.chainlizard.githubsearch.UI.MyTimePickerDialog
 import id.chainlizard.githubsearch.R
 import id.chainlizard.githubsearch.TypeList
-import id.chainlizard.githubsearch.ViewModel.Favorite
+import id.chainlizard.githubsearch.UI.MyTimePickerDialog
 import id.chainlizard.githubsearch.ViewModel.Setting
 import java.util.*
 
@@ -29,7 +29,6 @@ class SettingFragment : Fragment() {
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                               savedInstanceState: Bundle?): View? {
-        // Inflate the layout for this fragment
         val root = inflater.inflate(R.layout.fragment_setting, container, false)
         openDialogButton = root.findViewById<Button>(R.id.setTime)
         openDialogButton.setOnClickListener {
@@ -37,6 +36,9 @@ class SettingFragment : Fragment() {
             dialogTimePicker.show(requireActivity().supportFragmentManager, "My Time Picker")
         }
 
+        root.findViewById<MaterialToolbar>(R.id.topAppBar).setNavigationOnClickListener {
+            requireActivity().onBackPressed()
+        }
         val mySwitchState = TypeList.readSharedPreference(requireActivity(), KEY_SWITCH_STATE, false)
         mySwitchButton = root.findViewById(R.id.switch_button)
         mySwitchButton.isChecked = mySwitchState

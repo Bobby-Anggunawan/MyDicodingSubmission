@@ -20,9 +20,7 @@ import com.google.android.material.floatingactionbutton.FloatingActionButton
 import id.chainlizard.githubsearch.Adapter.Detail_List
 import id.chainlizard.githubsearch.R
 import id.chainlizard.githubsearch.TypeList
-import id.chainlizard.githubsearch.UI.MainActivity
 import id.chainlizard.githubsearch.ViewModel.Detail
-import java.lang.Exception
 
 
 class DetailFragment : Fragment() {
@@ -60,7 +58,7 @@ class DetailFragment : Fragment() {
         myToolBar.title = usrName
         model.getUser("https://api.github.com/users/"+ usrName).observe(requireActivity(), {
             try{
-                // todo(gak tahu kadang error.. katanya karena requireContext(), tapi saya test meski errornya diabaikan tidak ada masalah yang muncul)
+                // todo(kadang error gak tahu kenapa.. katanya karena requireContext(), tapi saya test meski errornya diabaikan tidak ada masalah yang muncul)
                 Glide.with(requireContext()).load(it.usr.avatar_url).into(root.findViewById(R.id.detail_avatar))
             }
             catch (e: Exception){
@@ -84,12 +82,13 @@ class DetailFragment : Fragment() {
             SetAdapter(it.detail)
             mySpinKit.visibility = View.INVISIBLE
         })
-        model.getFabState(requireContext(), usrName.toString()).observe(requireActivity(), {
+        model.getFabState(requireContext(), usrName).observe(requireActivity(), {
+            //ubah icon di fab ketika click(kayak toggle button)
             if(it == false){
-                myFab.setImageResource(R.drawable.ic_favorite_border_white_18dp)   //ubah icon ketika click
+                myFab.setImageResource(R.drawable.ic_favorite_border_white_18dp)
             }
             else{
-                myFab.setImageResource(R.drawable.ic_favorite_white_18dp)   //ubah icon ketika click
+                myFab.setImageResource(R.drawable.ic_favorite_white_18dp)
             }
         })
 

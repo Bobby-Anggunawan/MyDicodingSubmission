@@ -1,0 +1,24 @@
+<resources>
+    <string name="app_name">ConsumerApp</string>
+    <string name="search_hint">Search User</string>
+    <string name="repository">Repository</string>
+    <string name="follower">Follower</string>
+    <string name="following">Following</string>
+    <string name="icon">icon</string>
+    <string name="avatar">Profile Image</string>
+    <string name="favorite">Favorite</string>
+    <string name="favorite_desc">Button to show favorite list</string>
+    <string name="setting">Setting</string>
+    <string name="setting_desc">Button to open setting page</string>
+    <string name="add_favorite_desc">Add this user to favorite</string>
+    <string name="daily_reminder">Daily reminder</string>
+    <string name="daily_reminder_every">Daily reminder every</string>
+    <string name="alarm" translatable="false">Alarm</string>
+    <string name="alarm_is_set">Alarm has been set</string>
+    <string name="alarm_unset">Alarm has been canceled </string>
+    <string name="swipe_up_to_turn_off_the_alarm">Swipe up to turn off the alarm</string>
+    <string name="alarms_from_the_githubsearch_app">Alarms from the GithubSearch app</string>
+    <string name="there_is_no_favorite_user_in_your_database">There is no favorite user in your database</string>
+    <string name="share">Share</string>
+    <string name="send_user_detail_to_other_app">Send user detail to other app</string>
+</resources>
