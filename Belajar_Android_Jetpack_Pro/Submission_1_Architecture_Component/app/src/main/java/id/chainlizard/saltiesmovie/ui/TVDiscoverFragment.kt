@@ -8,9 +8,11 @@ import android.view.ViewGroup
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.RecyclerView
+import id.chainlizard.saltiesmovie.MainActivity
 import id.chainlizard.saltiesmovie.R
 import id.chainlizard.saltiesmovie.adapter.TVDiscoverAdapter
 import id.chainlizard.saltiesmovie.functions.MyObj
+import id.chainlizard.saltiesmovie.myIdlingResource
 import id.chainlizard.saltiesmovie.viewmodel.TVDiscoverVM
 
 class TVDiscoverFragment : Fragment() {
@@ -27,6 +29,9 @@ class TVDiscoverFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
+        myIdlingResource.increment()
+
         myRecyclerView = view.findViewById(R.id.tvList)
         val model: TVDiscoverVM by viewModels()
         model.getTV().observe(requireActivity(), {
@@ -34,6 +39,8 @@ class TVDiscoverFragment : Fragment() {
                 TVDiscoverAdapter.SetAdapter(it, myRecyclerView, requireActivity(), findNavController())
             }
             myRecyclerView.adapter?.notifyDataSetChanged()
+
+            myIdlingResource.decrement()
         })
     }
 }

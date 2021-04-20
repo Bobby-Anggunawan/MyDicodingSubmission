@@ -10,8 +10,10 @@ import android.widget.RatingBar
 import android.widget.TextView
 import androidx.fragment.app.viewModels
 import com.bumptech.glide.Glide
+import id.chainlizard.saltiesmovie.MainActivity
 import id.chainlizard.saltiesmovie.R
 import id.chainlizard.saltiesmovie.functions.MyObj
+import id.chainlizard.saltiesmovie.myIdlingResource
 import id.chainlizard.saltiesmovie.viewmodel.MovieDetailVM
 import id.chainlizard.saltiesmovie.viewmodel.TVDetailVM
 
@@ -37,6 +39,9 @@ class TVDetailFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
+        myIdlingResource.increment()
+
         judul = view.findViewById(R.id.Judul)
         poster = view.findViewById(R.id.poster)
         tagline = view.findViewById(R.id.tagline)
@@ -65,6 +70,8 @@ class TVDetailFragment : Fragment() {
             season.text = it.number_of_seasons.toString()
             episodes.text = it.number_of_episodes.toString()
             tipe.text = it.type
+
+            myIdlingResource.decrement()
         })
     }
 }

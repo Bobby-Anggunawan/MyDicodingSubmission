@@ -8,9 +8,11 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.RecyclerView
+import id.chainlizard.saltiesmovie.MainActivity
 import id.chainlizard.saltiesmovie.R
 import id.chainlizard.saltiesmovie.adapter.MovieDiscoverAdapter
 import id.chainlizard.saltiesmovie.functions.MyObj
+import id.chainlizard.saltiesmovie.myIdlingResource
 import id.chainlizard.saltiesmovie.viewmodel.MovieDiscoverVM
 
 class MovieDiscoverFragment : Fragment() {
@@ -27,6 +29,9 @@ class MovieDiscoverFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
+        myIdlingResource.increment()
+
         myRecyclerView = view.findViewById(R.id.movieList)
         val model: MovieDiscoverVM by viewModels()
         model.getMovie().observe(requireActivity(), {
@@ -34,6 +39,8 @@ class MovieDiscoverFragment : Fragment() {
                 MovieDiscoverAdapter.SetAdapter(it, myRecyclerView, requireActivity(), findNavController())
             }
             myRecyclerView.adapter?.notifyDataSetChanged()
+
+            myIdlingResource.decrement()
         })
     }
 

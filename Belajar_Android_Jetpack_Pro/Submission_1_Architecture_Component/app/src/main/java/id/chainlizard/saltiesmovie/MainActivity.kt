@@ -1,12 +1,11 @@
 package id.chainlizard.saltiesmovie
 
 import android.os.Bundle
-import android.widget.TextView
+import androidx.annotation.NonNull
+import androidx.annotation.VisibleForTesting
 import androidx.appcompat.app.AppCompatActivity
-import id.chainlizard.saltiesmovie.functions.Networking
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.async
-import kotlinx.coroutines.runBlocking
+import androidx.test.espresso.IdlingResource
+import androidx.test.espresso.idling.CountingIdlingResource
 
 
 class MainActivity : AppCompatActivity() {
