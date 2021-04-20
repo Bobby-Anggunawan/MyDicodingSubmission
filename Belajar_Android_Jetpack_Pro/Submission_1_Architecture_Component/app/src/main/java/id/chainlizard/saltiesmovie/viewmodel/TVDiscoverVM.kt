@@ -6,6 +6,7 @@ import androidx.lifecycle.ViewModel
 import id.chainlizard.saltiesmovie.functions.MyObj
 import id.chainlizard.saltiesmovie.functions.Networking
 import id.chainlizard.saltiesmovie.model.TVDiscoverMod
+import id.chainlizard.saltiesmovie.myIdlingResource
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
@@ -22,9 +23,15 @@ class TVDiscoverVM: ViewModel() {
     }
 
     fun loadTV(page: Int){
+        myIdlingResource.increment()
         GlobalScope.launch(Dispatchers.Default){
-            val alist = TVDiscoverMod.getData(page)
-            tv?.postValue(alist.results)
+            try{
+                val alist = TVDiscoverMod.getData(page)
+                tv?.postValue(alist.results)
+            }
+            catch(e: Exception){
+                myIdlingResource.decrement()
+            }
         }
     }
 }

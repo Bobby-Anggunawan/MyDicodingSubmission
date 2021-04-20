@@ -6,9 +6,11 @@ import androidx.lifecycle.ViewModel
 import id.chainlizard.saltiesmovie.functions.MyObj
 import id.chainlizard.saltiesmovie.functions.Networking
 import id.chainlizard.saltiesmovie.model.MovieDiscoverMod
+import id.chainlizard.saltiesmovie.myIdlingResource
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
+import java.lang.Exception
 
 class MovieDiscoverVM: ViewModel() {
     private var movies: MutableLiveData<ArrayList<MovieDiscoverMod.MoviePage_List>>? = null
@@ -22,9 +24,15 @@ class MovieDiscoverVM: ViewModel() {
     }
 
     fun loadMovies(page: Int){
+        myIdlingResource.increment()
         GlobalScope.launch(Dispatchers.Default){
-            val alist = MovieDiscoverMod.getData(page)
-            movies?.postValue(alist.results)
+            try{
+                val alist = MovieDiscoverMod.getData(page)
+                movies?.postValue(alist.results)
+            }
+            catch (e: Exception){
+                myIdlingResource.decrement()
+            }
         }
     }
 }

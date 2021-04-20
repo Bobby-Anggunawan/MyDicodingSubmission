@@ -40,8 +40,6 @@ class TVDetailFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        myIdlingResource.increment()
-
         judul = view.findViewById(R.id.Judul)
         poster = view.findViewById(R.id.poster)
         tagline = view.findViewById(R.id.tagline)

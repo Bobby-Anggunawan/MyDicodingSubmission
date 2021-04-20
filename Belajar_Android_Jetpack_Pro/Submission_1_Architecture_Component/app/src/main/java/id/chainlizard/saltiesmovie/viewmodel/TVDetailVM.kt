@@ -6,9 +6,11 @@ import androidx.lifecycle.ViewModel
 import id.chainlizard.saltiesmovie.functions.MyObj
 import id.chainlizard.saltiesmovie.functions.Networking
 import id.chainlizard.saltiesmovie.model.TVDetailMod
+import id.chainlizard.saltiesmovie.myIdlingResource
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
+import java.lang.Exception
 
 class TVDetailVM: ViewModel() {
     private var TV: MutableLiveData<TVDetailMod.TVDetail>? = null
@@ -22,9 +24,15 @@ class TVDetailVM: ViewModel() {
     }
 
     fun loadTV(id: Int){
+        myIdlingResource.increment()
         GlobalScope.launch(Dispatchers.Default){
-            val alist = TVDetailMod.getData(id)
-            TV?.postValue(alist)
+            try{
+                val alist = TVDetailMod.getData(id)
+                TV?.postValue(alist)
+            }
+            catch(e: Exception){
+                myIdlingResource.decrement()
+            }
         }
     }
 }

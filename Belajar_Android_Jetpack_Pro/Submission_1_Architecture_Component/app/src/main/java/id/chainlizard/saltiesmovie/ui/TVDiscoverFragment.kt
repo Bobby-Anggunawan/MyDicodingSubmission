@@ -30,8 +30,6 @@ class TVDiscoverFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        myIdlingResource.increment()
-
         myRecyclerView = view.findViewById(R.id.tvList)
         val model: TVDiscoverVM by viewModels()
         model.getTV().observe(requireActivity(), {

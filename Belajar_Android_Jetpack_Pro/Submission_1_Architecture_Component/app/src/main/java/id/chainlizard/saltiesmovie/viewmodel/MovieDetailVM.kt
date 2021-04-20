@@ -6,6 +6,7 @@ import androidx.lifecycle.ViewModel
 import id.chainlizard.saltiesmovie.functions.MyObj
 import id.chainlizard.saltiesmovie.functions.Networking
 import id.chainlizard.saltiesmovie.model.MovieDetailMod
+import id.chainlizard.saltiesmovie.myIdlingResource
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
@@ -22,9 +23,15 @@ class MovieDetailVM: ViewModel() {
     }
 
     fun loadMovie(id: Int){
+        myIdlingResource.increment()
         GlobalScope.launch(Dispatchers.Default){
-            val alist = MovieDetailMod.getData(id)
-            movie?.postValue(alist)
+            try{
+                val alist = MovieDetailMod.getData(id)
+                movie?.postValue(alist)
+            }
+            catch(e: Exception){
+                myIdlingResource.decrement()
+            }
         }
     }
 }

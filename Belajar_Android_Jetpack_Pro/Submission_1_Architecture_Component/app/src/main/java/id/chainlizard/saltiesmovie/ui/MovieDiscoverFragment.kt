@@ -30,8 +30,6 @@ class MovieDiscoverFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        myIdlingResource.increment()
-
         myRecyclerView = view.findViewById(R.id.movieList)
         val model: MovieDiscoverVM by viewModels()
         model.getMovie().observe(requireActivity(), {
