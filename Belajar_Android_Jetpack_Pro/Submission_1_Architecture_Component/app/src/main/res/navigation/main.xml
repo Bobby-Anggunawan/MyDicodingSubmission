@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/mobile_navigation"
+    app:startDestination="@+id/fragment_list">
+
+    <fragment
+        android:id="@+id/fragment_list"
+        android:name="id.chainlizard.saltiesmovie.ui.ContainerMovieAndFilmFragment"
+        android:label="List"
+        tools:layout="@layout/fragment_container_movie_and_film"/>
+    <fragment
+        android:id="@+id/fragment_movie_detail"
+        android:name="id.chainlizard.saltiesmovie.ui.MovieDetailFragment"
+        android:label="Detail"
+        tools:layout="@layout/fragment_movie_detail"/>
+    <fragment
+        android:id="@+id/fragment_t_v_detail"
+        android:name="id.chainlizard.saltiesmovie.ui.TVDetailFragment"
+        android:label="Detail"
+        tools:layout="@layout/fragment_t_v_detail"/>
+
+</navigation>

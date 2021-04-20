@@ -8,6 +8,7 @@ import androidx.appcompat.app.AppCompatActivity
 import com.bumptech.glide.Glide
 import com.daimajia.swipe.SwipeLayout
 import com.daimajia.swipe.SwipeLayout.SwipeListener
+import id.chainlizard.githubsearch.Notifikasi
 import id.chainlizard.githubsearch.R
 import java.util.*
 
@@ -15,6 +16,8 @@ class TelotetActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_telotet)
+
+        Notifikasi.showAlarmNotification(this, getString(R.string.notification_message))
 
         val animationArrow = findViewById<ImageView>(R.id.animasiPanah)
         Glide.with(this)

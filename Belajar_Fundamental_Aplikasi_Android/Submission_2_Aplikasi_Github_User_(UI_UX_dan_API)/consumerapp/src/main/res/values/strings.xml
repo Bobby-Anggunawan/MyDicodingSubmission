@@ -21,4 +21,5 @@
     <string name="there_is_no_favorite_user_in_your_database">There is no favorite user in your database</string>
     <string name="share">Share</string>
     <string name="send_user_detail_to_other_app">Send user detail to other app</string>
+    <string name="notification_message">Click here to open the GithubSearch application</string>
 </resources>

@@ -4,6 +4,7 @@ import android.appwidget.AppWidgetManager
 import android.content.Context
 import android.content.Intent
 import android.graphics.Bitmap
+import android.os.Binder
 import android.os.Bundle
 import android.widget.RemoteViews
 import android.widget.RemoteViewsService
@@ -48,25 +49,24 @@ internal class StackRemoteViewsFactory(context: Context, intent: Intent) : Remot
 
     override fun getViewAt(position: Int): RemoteViews {
         val rv = RemoteViews(mContext.getPackageName(), R.layout.item_widget)
-        rv.setTextViewText(R.id.widget_item, mMyWidgetItems[position].username)
-        val bitmap: Bitmap = Glide.with(mContext)
-                .asBitmap()
-                .load(mMyWidgetItems[position].avatar)
-                .submit(512, 512)
-                .get()
-
-        rv.setImageViewBitmap(R.id.avatar_img, bitmap)
+        rv.setTextViewText(R.id.widget_item, mMyWidgetItems.get(position).username)
 
         val extras = Bundle()
         extras.putInt(MyWidgetProvider.EXTRA_ITEM, position)
         val fillInIntent = Intent()
         fillInIntent.putExtras(extras)
-        rv.setOnClickFillInIntent(R.id.widget_item, fillInIntent)
+        rv.setOnClickFillInIntent(R.id.widget_item_layout, fillInIntent)
 
         try {
-            println("Loading view $position")
-            Thread.sleep(500)
-        } catch (e: InterruptedException) {
+            val bitmap: Bitmap = Glide.with(mContext)
+                    .asBitmap()
+                    .load(mMyWidgetItems[position].avatar)
+                    .submit(512, 512)
+                    .get()
+
+            rv.setImageViewBitmap(R.id.avatar_img, bitmap)
+        }
+        catch (e: InterruptedException) {
             e.printStackTrace()
         }
 
@@ -90,10 +90,12 @@ internal class StackRemoteViewsFactory(context: Context, intent: Intent) : Remot
     }
 
     override fun onDataSetChanged() {
-        var storeUser: ArrayList<TypeList.User> = arrayListOf()
+        mMyWidgetItems.clear()
+        val storeUser: ArrayList<TypeList.User> = arrayListOf()
+        val identityToken = Binder.clearCallingIdentity()
         runBlocking {
             val getUser = async(Dispatchers.IO) { Database.DatabaseHelper.getAllUser(mContext) }
-            storeUser = getUser.await()
+            storeUser.addAll(getUser.await())
         }
 
         for (x in 0..storeUser.count()-1) {
@@ -104,5 +106,7 @@ internal class StackRemoteViewsFactory(context: Context, intent: Intent) : Remot
                 )
             )
         }
+        Binder.restoreCallingIdentity(identityToken)
+        storeUser.clear()
     }
 }
