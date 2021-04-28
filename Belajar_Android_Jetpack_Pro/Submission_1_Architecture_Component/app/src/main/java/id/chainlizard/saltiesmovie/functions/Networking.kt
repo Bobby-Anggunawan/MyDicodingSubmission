@@ -1,17 +1,8 @@
 package id.chainlizard.saltiesmovie.functions
 
-import com.google.gson.Gson
 import com.loopj.android.http.AsyncHttpResponseHandler
 import com.loopj.android.http.SyncHttpClient
 import cz.msebera.android.httpclient.Header
-import id.chainlizard.saltiesmovie.BuildConfig
-import id.chainlizard.saltiesmovie.model.MovieDetailMod
-import id.chainlizard.saltiesmovie.model.MovieDiscoverMod
-import id.chainlizard.saltiesmovie.model.TVDetailMod
-import id.chainlizard.saltiesmovie.model.TVDiscoverMod
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.async
-import kotlinx.coroutines.runBlocking
 
 object Networking {
     class NetworkBuilder{

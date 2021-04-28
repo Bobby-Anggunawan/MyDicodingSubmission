@@ -1,12 +1,10 @@
-package id.chainlizard.saltiesmovie
+package id.chainlizard.saltiesmovie.functions
 
 import androidx.test.espresso.IdlingResource
 import androidx.test.espresso.idling.CountingIdlingResource
 
-object myIdlingResource {
-    private val RESOURCE = "salties"
-    private val countingIdlingResource = CountingIdlingResource(RESOURCE)
-
+object MyIdlingResource {
+    private val countingIdlingResource = CountingIdlingResource("salties")
     val idlingresource: IdlingResource
         get() = countingIdlingResource
 

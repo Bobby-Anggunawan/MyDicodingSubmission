@@ -10,10 +10,9 @@ import android.widget.RatingBar
 import android.widget.TextView
 import androidx.fragment.app.viewModels
 import com.bumptech.glide.Glide
-import id.chainlizard.saltiesmovie.MainActivity
 import id.chainlizard.saltiesmovie.R
 import id.chainlizard.saltiesmovie.functions.MyObj
-import id.chainlizard.saltiesmovie.myIdlingResource
+import id.chainlizard.saltiesmovie.functions.MyIdlingResource
 import id.chainlizard.saltiesmovie.viewmodel.MovieDetailVM
 
 class MovieDetailFragment : Fragment() {
@@ -54,7 +53,7 @@ class MovieDetailFragment : Fragment() {
         val movieID = MyObj.readIdPreference(requireActivity())
 
         val model: MovieDetailVM by viewModels()
-        model.getMovie(movieID).observe(requireActivity(), {
+        model.getMovie(movieID, requireContext()).observe(requireActivity(), {
             Glide.with(requireActivity()).load("https://www.themoviedb.org/t/p/w220_and_h330_face"+it.poster_path).into(poster)
 
             judul.text = it.title
@@ -67,7 +66,7 @@ class MovieDetailFragment : Fragment() {
             badget.text = it.budget.toString()
             revenue.text = it.revenue.toString()
 
-            myIdlingResource.decrement()
+            MyIdlingResource.decrement()
         })
     }
 

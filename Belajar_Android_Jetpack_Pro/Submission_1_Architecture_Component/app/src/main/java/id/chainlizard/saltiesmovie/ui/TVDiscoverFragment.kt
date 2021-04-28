@@ -8,11 +8,11 @@ import android.view.ViewGroup
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.RecyclerView
-import id.chainlizard.saltiesmovie.MainActivity
 import id.chainlizard.saltiesmovie.R
-import id.chainlizard.saltiesmovie.adapter.TVDiscoverAdapter
 import id.chainlizard.saltiesmovie.functions.MyObj
-import id.chainlizard.saltiesmovie.myIdlingResource
+import id.chainlizard.saltiesmovie.functions.SetUpRecyclerView
+import id.chainlizard.saltiesmovie.functions.MyIdlingResource
+import id.chainlizard.saltiesmovie.model.TVDiscoverMod
 import id.chainlizard.saltiesmovie.viewmodel.TVDiscoverVM
 
 class TVDiscoverFragment : Fragment() {
@@ -32,13 +32,23 @@ class TVDiscoverFragment : Fragment() {
 
         myRecyclerView = view.findViewById(R.id.tvList)
         val model: TVDiscoverVM by viewModels()
-        model.getTV().observe(requireActivity(), {
+        model.getTV(requireContext()).observe(requireActivity(), {
             if(myRecyclerView.adapter == null){
-                TVDiscoverAdapter.SetAdapter(it, myRecyclerView, requireActivity(), findNavController())
+                SetUpRecyclerView.setUp(it).recyclerView(myRecyclerView)
+                        .setListItemLayout(R.layout.item_list_discover)
+                        .setActivity(requireActivity())
+                        .addImageView("poster_path", R.id.poster)
+                        .addTextView("name", R.id.judul)
+                        .addTextView("overview", R.id.overview)
+                        .addRatingBar("vote_average", R.id.rating)
+                        .setItemOnClick_ThenRun {
+                            MyObj.writeIdPreference(it.id, requireActivity())
+                            findNavController().navigate(R.id.fragment_t_v_detail)
+                        }
             }
             myRecyclerView.adapter?.notifyDataSetChanged()
 
-            myIdlingResource.decrement()
+            MyIdlingResource.decrement()
         })
     }
 }

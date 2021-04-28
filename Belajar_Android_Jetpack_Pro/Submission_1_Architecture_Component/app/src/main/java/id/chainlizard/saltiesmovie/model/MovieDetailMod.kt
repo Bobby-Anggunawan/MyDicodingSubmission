@@ -1,8 +1,6 @@
 package id.chainlizard.saltiesmovie.model
 
-import id.chainlizard.saltiesmovie.BuildConfig
 import id.chainlizard.saltiesmovie.functions.MyObj
-import id.chainlizard.saltiesmovie.functions.Networking
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.async
 import kotlinx.coroutines.runBlocking

@@ -6,9 +6,6 @@ import androidx.viewpager2.adapter.FragmentStateAdapter
 import androidx.viewpager2.widget.ViewPager2
 import com.google.android.material.tabs.TabLayout
 import com.google.android.material.tabs.TabLayoutMediator
-import id.chainlizard.saltiesmovie.R
-import id.chainlizard.saltiesmovie.ui.MovieDiscoverFragment
-import id.chainlizard.saltiesmovie.ui.TVDiscoverFragment
 
 object SetUpTabView {
     class MyPager(activity: AppCompatActivity, pageCount: Int, pageList: ArrayList<Fragment>) : FragmentStateAdapter(activity) {

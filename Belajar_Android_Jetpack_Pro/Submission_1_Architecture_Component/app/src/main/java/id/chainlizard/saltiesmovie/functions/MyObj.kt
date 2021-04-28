@@ -2,6 +2,7 @@ package id.chainlizard.saltiesmovie.functions
 
 import android.app.Activity
 import android.content.Context
+import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.google.gson.Gson
 import id.chainlizard.saltiesmovie.BuildConfig
 import id.chainlizard.saltiesmovie.model.MovieDetailMod
@@ -53,6 +54,14 @@ object MyObj {
         else{
             return 0
         }
+    }
+
+    fun buildMyErrorDialog(context: Context, pesan: String){
+        MaterialAlertDialogBuilder(context)
+                .setTitle("Network Error")
+                .setMessage(pesan)
+                .setPositiveButton("Ok") { dialog, which -> }
+                .show()
     }
 
     data class Genre(

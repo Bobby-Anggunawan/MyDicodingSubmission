@@ -10,11 +10,9 @@ import android.widget.RatingBar
 import android.widget.TextView
 import androidx.fragment.app.viewModels
 import com.bumptech.glide.Glide
-import id.chainlizard.saltiesmovie.MainActivity
 import id.chainlizard.saltiesmovie.R
 import id.chainlizard.saltiesmovie.functions.MyObj
-import id.chainlizard.saltiesmovie.myIdlingResource
-import id.chainlizard.saltiesmovie.viewmodel.MovieDetailVM
+import id.chainlizard.saltiesmovie.functions.MyIdlingResource
 import id.chainlizard.saltiesmovie.viewmodel.TVDetailVM
 
 class TVDetailFragment : Fragment() {
@@ -55,7 +53,7 @@ class TVDetailFragment : Fragment() {
         val TVID = MyObj.readIdPreference(requireActivity())
 
         val model: TVDetailVM by viewModels()
-        model.getTV(TVID).observe(requireActivity(), {
+        model.getTV(TVID, requireContext()).observe(requireActivity(), {
             Glide.with(requireActivity()).load("https://www.themoviedb.org/t/p/w220_and_h330_face"+it.poster_path).into(poster)
 
             judul.text = it.name
@@ -69,7 +67,7 @@ class TVDetailFragment : Fragment() {
             episodes.text = it.number_of_episodes.toString()
             tipe.text = it.type
 
-            myIdlingResource.decrement()
+            MyIdlingResource.decrement()
         })
     }
 }

@@ -8,11 +8,10 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.RecyclerView
-import id.chainlizard.saltiesmovie.MainActivity
 import id.chainlizard.saltiesmovie.R
-import id.chainlizard.saltiesmovie.adapter.MovieDiscoverAdapter
 import id.chainlizard.saltiesmovie.functions.MyObj
-import id.chainlizard.saltiesmovie.myIdlingResource
+import id.chainlizard.saltiesmovie.functions.SetUpRecyclerView
+import id.chainlizard.saltiesmovie.functions.MyIdlingResource
 import id.chainlizard.saltiesmovie.viewmodel.MovieDiscoverVM
 
 class MovieDiscoverFragment : Fragment() {
@@ -32,13 +31,23 @@ class MovieDiscoverFragment : Fragment() {
 
         myRecyclerView = view.findViewById(R.id.movieList)
         val model: MovieDiscoverVM by viewModels()
-        model.getMovie().observe(requireActivity(), {
+        model.getMovie(requireContext()).observe(requireActivity(), {
             if(myRecyclerView.adapter == null){
-                MovieDiscoverAdapter.SetAdapter(it, myRecyclerView, requireActivity(), findNavController())
+                SetUpRecyclerView.setUp(it).recyclerView(myRecyclerView)
+                    .setListItemLayout(R.layout.item_list_discover)
+                    .setActivity(requireActivity())
+                    .addImageView("poster_path", R.id.poster)
+                    .addTextView("original_title", R.id.judul)
+                    .addTextView("overview", R.id.overview)
+                    .addRatingBar("vote_average", R.id.rating)
+                    .setItemOnClick_ThenRun {
+                        MyObj.writeIdPreference(it.id, requireActivity())
+                        findNavController().navigate(R.id.fragment_movie_detail)
+                    }
             }
             myRecyclerView.adapter?.notifyDataSetChanged()
 
-            myIdlingResource.decrement()
+            MyIdlingResource.decrement()
         })
     }
 
