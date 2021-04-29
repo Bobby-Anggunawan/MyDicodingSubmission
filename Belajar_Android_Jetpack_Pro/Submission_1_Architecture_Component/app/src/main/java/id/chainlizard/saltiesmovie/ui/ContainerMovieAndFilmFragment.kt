@@ -8,10 +8,11 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import androidx.viewpager2.widget.ViewPager2
 import com.google.android.material.tabs.TabLayout
+import dagger.hilt.android.AndroidEntryPoint
 import id.chainlizard.saltiesmovie.R
 import id.chainlizard.saltiesmovie.functions.SetUpTabView
 
-
+@AndroidEntryPoint
 class ContainerMovieAndFilmFragment : Fragment() {
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,

@@ -10,11 +10,13 @@ import android.widget.RatingBar
 import android.widget.TextView
 import androidx.fragment.app.viewModels
 import com.bumptech.glide.Glide
+import dagger.hilt.android.AndroidEntryPoint
 import id.chainlizard.saltiesmovie.R
 import id.chainlizard.saltiesmovie.functions.MyObj
 import id.chainlizard.saltiesmovie.functions.MyIdlingResource
 import id.chainlizard.saltiesmovie.viewmodel.MovieDetailVM
 
+@AndroidEntryPoint
 class MovieDetailFragment : Fragment() {
 
     lateinit var judul: TextView

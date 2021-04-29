@@ -6,16 +6,19 @@ import android.os.Looper
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import dagger.hilt.android.lifecycle.HiltViewModel
 import id.chainlizard.saltiesmovie.functions.MyObj
-import id.chainlizard.saltiesmovie.model.MovieDetailMod
+import id.chainlizard.saltiesmovie.data.model.MovieDetailMod
 import id.chainlizard.saltiesmovie.functions.MyIdlingResource
+import id.chainlizard.saltiesmovie.data.MyRepository
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
+import javax.inject.Inject
 
-class MovieDetailVM: ViewModel() {
+@HiltViewModel
+class MovieDetailVM @Inject constructor(private val repository: MyRepository): ViewModel() {
     private var movie: MutableLiveData<MovieDetailMod.MovieDetail>? = null
-
     fun getMovie(id: Int, context: Context): LiveData<MovieDetailMod.MovieDetail> {
         if(movie == null){
             movie = MutableLiveData()
@@ -28,7 +31,7 @@ class MovieDetailVM: ViewModel() {
         MyIdlingResource.increment()
         GlobalScope.launch(Dispatchers.Default){
             try{
-                val alist = MovieDetailMod.getData(id)
+                val alist = repository.getMovieDetail(id)
                 movie?.postValue(alist)
             }
             catch(e: Exception){

@@ -6,14 +6,18 @@ import android.os.Looper
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import dagger.hilt.android.lifecycle.HiltViewModel
+import id.chainlizard.saltiesmovie.data.MyRepository
 import id.chainlizard.saltiesmovie.functions.MyObj
-import id.chainlizard.saltiesmovie.model.MovieDiscoverMod
+import id.chainlizard.saltiesmovie.data.model.MovieDiscoverMod
 import id.chainlizard.saltiesmovie.functions.MyIdlingResource
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
+import javax.inject.Inject
 
-class MovieDiscoverVM: ViewModel() {
+@HiltViewModel
+class MovieDiscoverVM @Inject constructor(private val repository: MyRepository): ViewModel() {
 
     private var movies: MutableLiveData<ArrayList<MovieDiscoverMod.MoviePage_List>>? = null
 
@@ -29,7 +33,7 @@ class MovieDiscoverVM: ViewModel() {
         MyIdlingResource.increment()
         GlobalScope.launch(Dispatchers.Default){
             try{
-                val alist = MovieDiscoverMod.getData(page)
+                val alist = repository.getMovieDiscover(page)
                 movies?.postValue(alist.results)
             }
             catch (e: Exception){

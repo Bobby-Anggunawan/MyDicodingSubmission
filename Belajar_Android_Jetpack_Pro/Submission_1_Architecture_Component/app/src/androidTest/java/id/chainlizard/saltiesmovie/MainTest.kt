@@ -15,7 +15,7 @@ import androidx.test.espresso.contrib.RecyclerViewActions
 import androidx.test.espresso.matcher.ViewMatchers.*
 import androidx.test.internal.runner.junit4.AndroidJUnit4ClassRunner
 import androidx.test.rule.ActivityTestRule
-import id.chainlizard.saltiesmovie.functions.myIdlingResource
+import id.chainlizard.saltiesmovie.functions.MyIdlingResource
 import org.junit.After
 import org.junit.Before
 import org.junit.Rule
@@ -33,7 +33,7 @@ class MainTest {
     @Before
     fun setup(){
         ActivityScenario.launch(MainActivity::class.java)
-        IdlingRegistry.getInstance().register(myIdlingResource.idlingresource)
+        IdlingRegistry.getInstance().register(MyIdlingResource.idlingresource)
     }
 
     @Rule @JvmField
@@ -41,7 +41,7 @@ class MainTest {
 
     @After
     fun tearDown() {
-        IdlingRegistry.getInstance().unregister(myIdlingResource.idlingresource)
+        IdlingRegistry.getInstance().unregister(MyIdlingResource.idlingresource)
     }
 
     @Test

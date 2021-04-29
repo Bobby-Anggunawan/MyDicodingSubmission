@@ -1,19 +1,37 @@
 package id.chainlizard.saltiesmovie
 
 import com.google.gson.GsonBuilder
-import id.chainlizard.saltiesmovie.model.MovieDetailMod
-import id.chainlizard.saltiesmovie.model.MovieDiscoverMod
-import id.chainlizard.saltiesmovie.model.TVDetailMod
-import id.chainlizard.saltiesmovie.model.TVDiscoverMod
+import dagger.hilt.android.testing.HiltAndroidRule
+import dagger.hilt.android.testing.HiltAndroidTest
+import dagger.hilt.android.testing.HiltTestApplication
+import id.chainlizard.saltiesmovie.data.MyRepository
+import id.chainlizard.saltiesmovie.data.model.MovieDetailMod
+import id.chainlizard.saltiesmovie.data.model.MovieDiscoverMod
+import id.chainlizard.saltiesmovie.data.model.TVDetailMod
+import id.chainlizard.saltiesmovie.data.model.TVDiscoverMod
+import org.junit.Before
+import org.junit.Rule
 import org.junit.Test
 import org.junit.runner.RunWith
 import org.robolectric.RobolectricTestRunner
 import org.robolectric.annotation.Config
 import org.skyscreamer.jsonassert.JSONAssert
+import javax.inject.Inject
 
 @RunWith(RobolectricTestRunner::class)
-@Config(manifest = Config.NONE)
+@HiltAndroidTest
+@Config(application = HiltTestApplication::class)
 class ModelTest {
+
+    //inject hilt
+    @get:Rule
+    var hiltRule = HiltAndroidRule(this)
+    @Inject
+    lateinit var repo: MyRepository
+    @Before
+    fun init() {
+        hiltRule.inject()
+    }
 
     //todo: Data dari api kadang berubah jadi kemungkinan besar test ini akan gagal saat di review. Saya sudah coba menemukan library untuk membandingkan struktur json tapi yang saya dapat hanya library untuk membandinhkan isi json sama atau tidak
     //todo: Test berhasil dilakukan pada 21-04-2021 6:50 am
@@ -26,7 +44,7 @@ class ModelTest {
             .serializeNulls()
             .disableHtmlEscaping()
             .create()
-        val downloadJson = MovieDetailMod.getData(idMovie)
+        val downloadJson = repo.getMovieDetail(idMovie)
         val getValue = gson.toJson(downloadJson)
         JSONAssert.assertEquals(realJson, getValue, false)
     }
@@ -40,7 +58,7 @@ class ModelTest {
             .serializeNulls()
             .disableHtmlEscaping()
             .create()
-        val downloadJson = MovieDiscoverMod.getData(page)
+        val downloadJson = repo.getMovieDiscover(page)
         val getValue = gson.toJson(downloadJson)
         JSONAssert.assertEquals(realJson, getValue, false)
     }
@@ -54,7 +72,7 @@ class ModelTest {
             .serializeNulls()
             .disableHtmlEscaping()
             .create()
-        val downloadJson = TVDetailMod.getData(idTV)
+        val downloadJson = repo.getTVDetail(idTV)
         val getValue = gson.toJson(downloadJson)
         JSONAssert.assertEquals(realJson, getValue, false)
     }
@@ -68,7 +86,7 @@ class ModelTest {
             .serializeNulls()
             .disableHtmlEscaping()
             .create()
-        val downloadJson = TVDiscoverMod.getData(page)
+        val downloadJson = repo.getTVDiscover(page)
         val getValue = gson.toJson(downloadJson)
         JSONAssert.assertEquals(realJson, getValue, false)
     }

@@ -8,12 +8,14 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.RecyclerView
+import dagger.hilt.android.AndroidEntryPoint
 import id.chainlizard.saltiesmovie.R
 import id.chainlizard.saltiesmovie.functions.MyObj
 import id.chainlizard.saltiesmovie.functions.SetUpRecyclerView
 import id.chainlizard.saltiesmovie.functions.MyIdlingResource
 import id.chainlizard.saltiesmovie.viewmodel.MovieDiscoverVM
 
+@AndroidEntryPoint
 class MovieDiscoverFragment : Fragment() {
 
     lateinit var myRecyclerView: RecyclerView

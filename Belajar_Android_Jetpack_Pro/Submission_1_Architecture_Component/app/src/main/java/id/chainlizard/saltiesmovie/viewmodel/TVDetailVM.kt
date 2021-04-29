@@ -6,14 +6,18 @@ import android.os.Looper
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import dagger.hilt.android.lifecycle.HiltViewModel
+import id.chainlizard.saltiesmovie.data.MyRepository
 import id.chainlizard.saltiesmovie.functions.MyObj
-import id.chainlizard.saltiesmovie.model.TVDetailMod
+import id.chainlizard.saltiesmovie.data.model.TVDetailMod
 import id.chainlizard.saltiesmovie.functions.MyIdlingResource
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
+import javax.inject.Inject
 
-class TVDetailVM: ViewModel() {
+@HiltViewModel
+class TVDetailVM @Inject constructor(private val repository: MyRepository): ViewModel() {
     private var TV: MutableLiveData<TVDetailMod.TVDetail>? = null
 
     fun getTV(id: Int, context: Context): LiveData<TVDetailMod.TVDetail> {
@@ -28,7 +32,7 @@ class TVDetailVM: ViewModel() {
         MyIdlingResource.increment()
         GlobalScope.launch(Dispatchers.Default){
             try{
-                val alist = TVDetailMod.getData(id)
+                val alist = repository.getTVDetail(id)
                 TV?.postValue(alist)
             }
             catch(e: Exception){

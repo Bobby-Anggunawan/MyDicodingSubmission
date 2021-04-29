@@ -5,10 +5,10 @@ import android.content.Context
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.google.gson.Gson
 import id.chainlizard.saltiesmovie.BuildConfig
-import id.chainlizard.saltiesmovie.model.MovieDetailMod
-import id.chainlizard.saltiesmovie.model.MovieDiscoverMod
-import id.chainlizard.saltiesmovie.model.TVDetailMod
-import id.chainlizard.saltiesmovie.model.TVDiscoverMod
+import id.chainlizard.saltiesmovie.data.model.MovieDetailMod
+import id.chainlizard.saltiesmovie.data.model.MovieDiscoverMod
+import id.chainlizard.saltiesmovie.data.model.TVDetailMod
+import id.chainlizard.saltiesmovie.data.model.TVDiscoverMod
 
 object MyObj {
 
