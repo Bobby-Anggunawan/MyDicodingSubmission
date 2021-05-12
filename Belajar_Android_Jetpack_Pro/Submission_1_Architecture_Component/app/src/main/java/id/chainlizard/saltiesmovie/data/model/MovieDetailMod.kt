@@ -1,8 +1,25 @@
 package id.chainlizard.saltiesmovie.data.model
 
+import androidx.room.Entity
+import androidx.room.PrimaryKey
 import id.chainlizard.saltiesmovie.functions.MyObj
 
 object MovieDetailMod {
+        fun convertToFav(real: MovieDetail): MovieFavoriteDetail{
+                return MovieFavoriteDetail(real.id, real.poster_path, real.title, real.tagline, real.overview, real.vote_average, real.release_date, real.original_language, real.status, real.budget, real.revenue)
+        }
+        fun convertToDet(real: MovieFavoriteDetail): MovieDetail{
+                return MovieDetail(true, "", "", real.budget, arrayListOf(), "", real.id, "", real.original_language, real.title, real.overview, 0.0, real.poster_path, arrayListOf(), arrayListOf(), real.release_date, 0, 0,
+                arrayListOf(), real.status, real.tagline, real.title, true, real.vote_average, 1)
+        }
+        fun convertToListDis(real: List<MovieFavoriteDetail>): List<MovieDiscoverMod.MoviePage_List>{
+                val ret = arrayListOf<MovieDiscoverMod.MoviePage_List>()
+                real.forEach{
+                        ret.add(MovieDiscoverMod.MoviePage_List(true, "", arrayListOf(), it.id, it.original_language, it.title, it.overview, 0.0, it.poster_path, it.release_date, it.title, true, it.vote_average, 1))
+                }
+                return ret
+        }
+
     data class MovieDetail(
             val adult: Boolean,
             val backdrop_path: String,
@@ -29,5 +46,19 @@ object MovieDetailMod {
             val video: Boolean,
             val vote_average: Double,
             val vote_count: Int
+    )
+    @Entity
+    data class MovieFavoriteDetail(
+            @PrimaryKey val id: Int,
+            val poster_path: String,
+            val title: String,
+            val tagline: String,
+            val overview: String,
+            val vote_average: Double,
+            val release_date: String,
+            val original_language: String,
+            val status: String,
+            val budget: Int,
+            val revenue: Int
     )
 }

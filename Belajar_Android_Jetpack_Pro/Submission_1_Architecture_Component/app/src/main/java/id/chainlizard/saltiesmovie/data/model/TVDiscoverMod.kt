@@ -1,11 +1,15 @@
 package id.chainlizard.saltiesmovie.data.model
 
+import androidx.room.Entity
+import androidx.room.PrimaryKey
+
 object TVDiscoverMod {
+    @Entity
     data class TVPage_List(
         val backdrop_path: String,
         val first_air_date: String,
         val genre_ids: ArrayList<Int>,
-        val id: Int,
+        @PrimaryKey val id: Int,
         val name: String,
         val origin_country: ArrayList<String>,
         val original_language: String,
@@ -18,9 +22,9 @@ object TVDiscoverMod {
     )
 
     data class TVPage(
-            val page: Int,
-            val results: ArrayList<TVPage_List>,
-            val total_pages: Int,
-            val total_results: Int
+        val page: Int,
+        val results: ArrayList<TVPage_List>,
+        val total_pages: Int,
+        val total_results: Int
     )
 }

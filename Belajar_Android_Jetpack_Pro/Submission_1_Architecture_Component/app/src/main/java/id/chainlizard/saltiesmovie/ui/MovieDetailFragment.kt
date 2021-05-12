@@ -1,19 +1,17 @@
 package id.chainlizard.saltiesmovie.ui
 
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.ImageView
-import android.widget.RatingBar
-import android.widget.TextView
+import android.widget.*
+import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import com.bumptech.glide.Glide
 import dagger.hilt.android.AndroidEntryPoint
 import id.chainlizard.saltiesmovie.R
-import id.chainlizard.saltiesmovie.functions.MyObj
 import id.chainlizard.saltiesmovie.functions.MyIdlingResource
+import id.chainlizard.saltiesmovie.functions.MyObj
 import id.chainlizard.saltiesmovie.viewmodel.MovieDetailVM
 
 @AndroidEntryPoint
@@ -30,11 +28,13 @@ class MovieDetailFragment : Fragment() {
     lateinit var badget: TextView
     lateinit var revenue: TextView
 
+    lateinit var mySpin: ProgressBar
+    lateinit var favBtn: ImageButton
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        // Inflate the layout for this fragment
         return inflater.inflate(R.layout.fragment_movie_detail, container, false)
     }
 
@@ -52,11 +52,16 @@ class MovieDetailFragment : Fragment() {
         badget = view.findViewById(R.id.budget)
         revenue = view.findViewById(R.id.revenue)
 
+        mySpin = view.findViewById(R.id.mySpin)
+        favBtn = view.findViewById(R.id.favorit)
+
         val movieID = MyObj.readIdPreference(requireActivity())
 
         val model: MovieDetailVM by viewModels()
-        model.getMovie(movieID, requireContext()).observe(requireActivity(), {
-            Glide.with(requireActivity()).load("https://www.themoviedb.org/t/p/w220_and_h330_face"+it.poster_path).into(poster)
+        model.getMovie(movieID, requireContext(), mySpin).observe(requireActivity(), {
+            Glide.with(requireActivity())
+                .load("https://www.themoviedb.org/t/p/w220_and_h330_face" + it.poster_path)
+                .into(poster)
 
             judul.text = it.title
             tagline.text = it.tagline
@@ -68,8 +73,20 @@ class MovieDetailFragment : Fragment() {
             badget.text = it.budget.toString()
             revenue.text = it.revenue.toString()
 
+            mySpin.visibility = View.GONE
             MyIdlingResource.decrement()
         })
+        model.getFavorit(movieID).observe(requireActivity(), {
+            if(it == true){
+                favBtn.setImageResource(R.drawable.ic_favorite_white_18dp)
+            }
+            else{
+                favBtn.setImageResource(R.drawable.ic_favorite_border_white_18dp)
+            }
+        })
+        favBtn.setOnClickListener {
+            model.postFavorit(movieID)
+        }
     }
 
 }

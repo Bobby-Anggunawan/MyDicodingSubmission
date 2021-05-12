@@ -21,6 +21,26 @@
             android:layout_margin="20dp"
             tools:src="@color/black"/>
 
+        <ImageButton
+            android:id="@+id/favorit"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:src="@drawable/ic_favorite_white_18dp"
+            app:layout_constraintEnd_toEndOf="@+id/poster"
+            app:layout_constraintTop_toTopOf="@+id/poster"
+            android:background="@null"
+            android:scaleType="fitXY"/>
+
+        <ProgressBar
+            android:id="@+id/mySpin"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            app:layout_constraintBottom_toBottomOf="@+id/poster"
+            app:layout_constraintEnd_toEndOf="@+id/poster"
+            app:layout_constraintStart_toStartOf="@+id/poster"
+            app:layout_constraintTop_toTopOf="parent" />
+
         <TextView
             android:id="@+id/Judul"
             android:layout_width="match_parent"
@@ -64,7 +84,7 @@
             android:layout_marginHorizontal="20dp">
             <TableRow android:layout_marginTop="10dp">
                 <TextView
-                    android:text="Rating :"
+                    android:text="Rating\t\t\t\t\t\t\t\t\t\t\t\t: "
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"/>
                 <FrameLayout
@@ -82,7 +102,7 @@
             </TableRow>
             <TableRow android:layout_marginTop="10dp">
                 <TextView
-                    android:text="Season :"
+                    android:text="Season\t\t\t\t\t\t\t\t\t\t\t: "
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"/>
                 <TextView
@@ -93,7 +113,7 @@
             </TableRow>
             <TableRow android:layout_marginTop="10dp">
                 <TextView
-                    android:text="Number of Episodes :"
+                    android:text="Number of Episodes\t: "
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"/>
                 <TextView
@@ -104,7 +124,7 @@
             </TableRow>
             <TableRow android:layout_marginTop="10dp">
                 <TextView
-                    android:text="First Air :"
+                    android:text="First Air\t\t\t\t\t\t\t\t\t\t\t: "
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"/>
                 <TextView
@@ -115,7 +135,7 @@
             </TableRow>
             <TableRow android:layout_marginTop="10dp">
                 <TextView
-                    android:text="Last Air :"
+                    android:text="Last Air\t\t\t\t\t\t\t\t\t\t\t: "
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"/>
                 <TextView
@@ -126,7 +146,7 @@
             </TableRow>
             <TableRow android:layout_marginTop="10dp">
                 <TextView
-                    android:text="Language :"
+                    android:text="Language\t\t\t\t\t\t\t\t\t: "
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"/>
                 <TextView
@@ -137,7 +157,7 @@
             </TableRow>
             <TableRow android:layout_marginTop="10dp">
                 <TextView
-                    android:text="Type :"
+                    android:text="Type\t\t\t\t\t\t\t\t\t\t\t\t\t: "
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"/>
                 <TextView

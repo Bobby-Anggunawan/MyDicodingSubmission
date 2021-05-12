@@ -8,15 +8,18 @@ import com.google.android.material.tabs.TabLayout
 import com.google.android.material.tabs.TabLayoutMediator
 
 object SetUpTabView {
-    class MyPager(activity: AppCompatActivity, pageCount: Int, pageList: ArrayList<Fragment>) : FragmentStateAdapter(activity) {
+    class MyPager(activity: AppCompatActivity, pageCount: Int, pageList: ArrayList<Fragment>) :
+        FragmentStateAdapter(activity) {
         var numPage: Int = 0
         var fragmentList: ArrayList<Fragment> = arrayListOf()
+
         init {
             numPage = pageCount
             fragmentList.addAll(pageList)
         }
+
         override fun createFragment(position: Int): Fragment {
-            var fragment: Fragment = fragmentList[position]
+            val fragment: Fragment = fragmentList[position]
             return fragment
         }
 
@@ -25,7 +28,14 @@ object SetUpTabView {
         }
     }
 
-    fun setUp(activity: AppCompatActivity, myViewPager: ViewPager2, myTabLayout: TabLayout, numPage: Int, titleEveryPage: Array<String>, pageList: ArrayList<Fragment>){
+    fun setUp(
+        activity: AppCompatActivity,
+        myViewPager: ViewPager2,
+        myTabLayout: TabLayout,
+        numPage: Int,
+        titleEveryPage: Array<String>,
+        pageList: ArrayList<Fragment>
+    ) {
         val sectionsPagerAdapter = MyPager(activity, numPage, pageList)
         myViewPager.adapter = sectionsPagerAdapter
         TabLayoutMediator(myTabLayout, myViewPager) { tab, position ->

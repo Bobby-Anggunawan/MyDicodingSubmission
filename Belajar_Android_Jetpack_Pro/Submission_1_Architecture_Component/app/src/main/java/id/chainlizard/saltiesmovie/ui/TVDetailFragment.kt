@@ -1,19 +1,20 @@
 package id.chainlizard.saltiesmovie.ui
 
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
+import android.widget.ProgressBar
 import android.widget.RatingBar
 import android.widget.TextView
+import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import com.bumptech.glide.Glide
 import dagger.hilt.android.AndroidEntryPoint
 import id.chainlizard.saltiesmovie.R
-import id.chainlizard.saltiesmovie.functions.MyObj
 import id.chainlizard.saltiesmovie.functions.MyIdlingResource
+import id.chainlizard.saltiesmovie.functions.MyObj
 import id.chainlizard.saltiesmovie.viewmodel.TVDetailVM
 
 @AndroidEntryPoint
@@ -31,9 +32,12 @@ class TVDetailFragment : Fragment() {
     lateinit var bahasa: TextView
     lateinit var tipe: TextView
 
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
-                              savedInstanceState: Bundle?): View? {
-        // Inflate the layout for this fragment
+    lateinit var mySpin: ProgressBar
+
+    override fun onCreateView(
+        inflater: LayoutInflater, container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View? {
         return inflater.inflate(R.layout.fragment_t_v_detail, container, false)
     }
 
@@ -52,11 +56,15 @@ class TVDetailFragment : Fragment() {
         bahasa = view.findViewById(R.id.language)
         tipe = view.findViewById(R.id.type)
 
+        mySpin = view.findViewById(R.id.mySpin)
+
         val TVID = MyObj.readIdPreference(requireActivity())
 
         val model: TVDetailVM by viewModels()
-        model.getTV(TVID, requireContext()).observe(requireActivity(), {
-            Glide.with(requireActivity()).load("https://www.themoviedb.org/t/p/w220_and_h330_face"+it.poster_path).into(poster)
+        model.getTV(TVID, requireContext(), mySpin).observe(requireActivity(), {
+            Glide.with(requireActivity())
+                .load("https://www.themoviedb.org/t/p/w220_and_h330_face" + it.poster_path)
+                .into(poster)
 
             judul.text = it.name
             tagline.text = it.tagline
@@ -69,6 +77,7 @@ class TVDetailFragment : Fragment() {
             episodes.text = it.number_of_episodes.toString()
             tipe.text = it.type
 
+            mySpin.visibility = View.GONE
             MyIdlingResource.decrement()
         })
     }

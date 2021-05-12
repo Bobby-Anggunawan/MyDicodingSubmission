@@ -1,5 +1,8 @@
 package id.chainlizard.saltiesmovie.data.model
 
+import androidx.room.Entity
+import androidx.room.PrimaryKey
+
 object MovieDiscoverMod {
     data class MoviePage_List(
             val adult: Boolean,

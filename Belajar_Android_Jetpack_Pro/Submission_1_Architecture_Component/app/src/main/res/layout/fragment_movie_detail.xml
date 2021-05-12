@@ -11,6 +11,8 @@
         android:layout_height="wrap_content"
         android:paddingBottom="20dp">
 
+
+
         <ImageView
             android:id="@+id/poster"
             android:layout_width="220dp"
@@ -19,7 +21,27 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             android:layout_margin="20dp"
-            tools:src="@color/black"/>
+            tools:src="@color/black" />
+
+        <ImageButton
+            android:id="@+id/favorit"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:src="@drawable/ic_favorite_white_18dp"
+            app:layout_constraintEnd_toEndOf="@+id/poster"
+            app:layout_constraintTop_toTopOf="@+id/poster"
+            android:background="@null"
+            android:scaleType="fitXY"/>
+
+        <ProgressBar
+            android:id="@+id/mySpin"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            app:layout_constraintBottom_toBottomOf="@+id/poster"
+            app:layout_constraintEnd_toEndOf="@+id/poster"
+            app:layout_constraintStart_toStartOf="@+id/poster"
+            app:layout_constraintTop_toTopOf="parent" />
 
         <TextView
             android:id="@+id/Judul"
@@ -64,7 +86,7 @@
             android:layout_marginHorizontal="20dp">
             <TableRow android:layout_marginTop="10dp">
                 <TextView
-                    android:text="Rating :"
+                    android:text="Rating\t\t\t\t\t\t: "
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"/>
                 <FrameLayout
@@ -82,7 +104,7 @@
             </TableRow>
             <TableRow android:layout_marginTop="10dp">
                 <TextView
-                    android:text="Release date :"
+                    android:text="Release date\t: "
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"/>
                 <TextView
@@ -93,7 +115,7 @@
             </TableRow>
             <TableRow android:layout_marginTop="10dp">
                 <TextView
-                    android:text="Language :"
+                    android:text="Language\t\t\t: "
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"/>
                 <TextView
@@ -104,7 +126,7 @@
             </TableRow>
             <TableRow android:layout_marginTop="10dp">
                 <TextView
-                    android:text="Status :"
+                    android:text="Status\t\t\t\t\t\t: "
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"/>
                 <TextView
@@ -115,7 +137,7 @@
             </TableRow>
             <TableRow android:layout_marginTop="10dp">
                 <TextView
-                    android:text="Budget :"
+                    android:text="Budget\t\t\t\t\t\t: "
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"/>
                 <TextView
@@ -126,7 +148,7 @@
             </TableRow>
             <TableRow android:layout_marginTop="10dp">
                 <TextView
-                    android:text="Revenue :"
+                    android:text="Revenue\t\t\t\t: "
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"/>
                 <TextView
