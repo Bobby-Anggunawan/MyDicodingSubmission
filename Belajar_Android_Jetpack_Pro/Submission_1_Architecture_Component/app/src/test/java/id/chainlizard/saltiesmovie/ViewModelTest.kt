@@ -53,6 +53,7 @@ class ViewModelTest {
         })
     }
 
+    /*
     @Test
     fun testMovieDiscoverVM() {
         assertEquals(MyObj.isOnline(activity), true)
@@ -60,7 +61,7 @@ class ViewModelTest {
         myMovieDiscoverVM.getMovie().observe(activity, {
             assertEquals(it, repo.getMovieDiscover(1).results)
         })
-    }
+    }*/
 
     @Test
     fun testTVDetailVM() {
@@ -71,6 +72,7 @@ class ViewModelTest {
         })
     }
 
+    /*
     @Test
     fun testTVDiscoverVM() {
         assertEquals(MyObj.isOnline(activity), true)
@@ -78,5 +80,5 @@ class ViewModelTest {
         myTVDiscoverVM.getTV().observe(activity, {
             assertEquals(it, repo.getTVDiscover(1).results)
         })
-    }
+    }*/
 }

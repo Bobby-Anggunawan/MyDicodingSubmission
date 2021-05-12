@@ -16,7 +16,6 @@ import androidx.paging.liveData
 import dagger.hilt.android.lifecycle.HiltViewModel
 import id.chainlizard.saltiesmovie.data.MyRepository
 import id.chainlizard.saltiesmovie.data.model.TVDiscoverMod
-import id.chainlizard.saltiesmovie.functions.MyIdlingResource
 import id.chainlizard.saltiesmovie.functions.MyObj
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope

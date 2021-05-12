@@ -13,10 +13,11 @@ import androidx.recyclerview.widget.RecyclerView
 import dagger.hilt.android.AndroidEntryPoint
 import id.chainlizard.saltiesmovie.R
 import id.chainlizard.saltiesmovie.adapter.PagingTV
-import id.chainlizard.saltiesmovie.functions.MyIdlingResource
 import id.chainlizard.saltiesmovie.functions.MyObj
 import id.chainlizard.saltiesmovie.functions.SetUpRecyclerView
+import id.chainlizard.saltiesmovie.viewmodel.MovieWatchListVM
 import id.chainlizard.saltiesmovie.viewmodel.TVDiscoverVM
+import id.chainlizard.saltiesmovie.viewmodel.TVWatchListVM
 
 @AndroidEntryPoint
 class TVDiscoverFragment(private val type: MyObj.pageType) : Fragment() {
@@ -46,6 +47,15 @@ class TVDiscoverFragment(private val type: MyObj.pageType) : Fragment() {
         myRecyclerView.layoutManager = LinearLayoutManager(requireContext())
         if(type == MyObj.pageType.Discover){
             val model: TVDiscoverVM by viewModels()
+            model.pagingItems.observe(viewLifecycleOwner, {
+                if(mySpin.visibility != View.GONE){
+                    mySpin.visibility = View.GONE
+                }
+                myAdapter.submitData(viewLifecycleOwner.lifecycle, it)
+            })
+        }
+        else{
+            val model: TVWatchListVM by viewModels()
             model.pagingItems.observe(viewLifecycleOwner, {
                 if(mySpin.visibility != View.GONE){
                     mySpin.visibility = View.GONE

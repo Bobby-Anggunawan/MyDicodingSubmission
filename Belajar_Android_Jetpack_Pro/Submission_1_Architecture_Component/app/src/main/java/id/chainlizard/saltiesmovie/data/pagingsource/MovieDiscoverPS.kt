@@ -3,6 +3,7 @@ package id.chainlizard.saltiesmovie.data.pagingsource
 import android.util.Log
 import androidx.paging.PagingSource
 import androidx.paging.PagingState
+import androidx.test.espresso.IdlingResource
 import dagger.hilt.android.AndroidEntryPoint
 import id.chainlizard.saltiesmovie.BuildConfig
 import id.chainlizard.saltiesmovie.data.MyRepository
@@ -15,6 +16,8 @@ import okhttp3.OkHttpClient
 import okhttp3.Request
 import javax.inject.Inject
 import javax.inject.Singleton
+import kotlin.math.ceil
+
 class MovieDiscoverPS(private var repository: MyRepository, private var type: MyObj.pageType): PagingSource<Int, MovieDiscoverMod.MoviePage_List>(){
 
     override suspend fun load(params: LoadParams<Int>): LoadResult<Int, MovieDiscoverMod.MoviePage_List> {

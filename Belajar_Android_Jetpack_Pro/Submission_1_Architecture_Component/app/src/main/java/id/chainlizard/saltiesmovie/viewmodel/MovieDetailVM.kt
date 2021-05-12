@@ -12,7 +12,6 @@ import dagger.hilt.android.lifecycle.HiltViewModel
 import id.chainlizard.saltiesmovie.data.MyRepository
 import id.chainlizard.saltiesmovie.data.model.MovieDetailMod
 import id.chainlizard.saltiesmovie.data.model.MovieDiscoverMod
-import id.chainlizard.saltiesmovie.functions.MyIdlingResource
 import id.chainlizard.saltiesmovie.functions.MyObj
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
@@ -68,7 +67,6 @@ class MovieDetailVM @Inject constructor(private val repository: MyRepository) : 
     }
 
     fun loadMovie(id: Int, context: Context? = null, mySpin: ProgressBar? = null) {
-        MyIdlingResource.increment()
         GlobalScope.launch(Dispatchers.Default) {
             try {
                 val alist = repository.getMovieDetail(id)
@@ -80,7 +78,6 @@ class MovieDetailVM @Inject constructor(private val repository: MyRepository) : 
                         mySpin!!.visibility = View.GONE
                     }
                 }
-                MyIdlingResource.decrement()
             }
         }
     }

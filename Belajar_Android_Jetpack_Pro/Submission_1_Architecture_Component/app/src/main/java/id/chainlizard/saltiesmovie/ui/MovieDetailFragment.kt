@@ -10,7 +10,6 @@ import androidx.fragment.app.viewModels
 import com.bumptech.glide.Glide
 import dagger.hilt.android.AndroidEntryPoint
 import id.chainlizard.saltiesmovie.R
-import id.chainlizard.saltiesmovie.functions.MyIdlingResource
 import id.chainlizard.saltiesmovie.functions.MyObj
 import id.chainlizard.saltiesmovie.viewmodel.MovieDetailVM
 
@@ -74,7 +73,6 @@ class MovieDetailFragment : Fragment() {
             revenue.text = it.revenue.toString()
 
             mySpin.visibility = View.GONE
-            MyIdlingResource.decrement()
         })
         model.getFavorit(movieID).observe(requireActivity(), {
             if(it == true){

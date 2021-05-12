@@ -4,16 +4,12 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.ImageView
-import android.widget.ProgressBar
-import android.widget.RatingBar
-import android.widget.TextView
+import android.widget.*
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import com.bumptech.glide.Glide
 import dagger.hilt.android.AndroidEntryPoint
 import id.chainlizard.saltiesmovie.R
-import id.chainlizard.saltiesmovie.functions.MyIdlingResource
 import id.chainlizard.saltiesmovie.functions.MyObj
 import id.chainlizard.saltiesmovie.viewmodel.TVDetailVM
 
@@ -33,6 +29,7 @@ class TVDetailFragment : Fragment() {
     lateinit var tipe: TextView
 
     lateinit var mySpin: ProgressBar
+    lateinit var favBtn: ImageButton
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -57,6 +54,7 @@ class TVDetailFragment : Fragment() {
         tipe = view.findViewById(R.id.type)
 
         mySpin = view.findViewById(R.id.mySpin)
+        favBtn = view.findViewById(R.id.favorit)
 
         val TVID = MyObj.readIdPreference(requireActivity())
 
@@ -78,7 +76,17 @@ class TVDetailFragment : Fragment() {
             tipe.text = it.type
 
             mySpin.visibility = View.GONE
-            MyIdlingResource.decrement()
         })
+        model.getFavorit(TVID).observe(requireActivity(), {
+            if(it == true){
+                favBtn.setImageResource(R.drawable.ic_favorite_white_18dp)
+            }
+            else{
+                favBtn.setImageResource(R.drawable.ic_favorite_border_white_18dp)
+            }
+        })
+        favBtn.setOnClickListener {
+            model.postFavorit(TVID)
+        }
     }
 }

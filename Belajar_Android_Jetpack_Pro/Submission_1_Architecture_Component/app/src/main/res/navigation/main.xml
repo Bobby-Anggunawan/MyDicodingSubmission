@@ -11,6 +11,11 @@
         android:label="List"
         tools:layout="@layout/fragment_container_movie_and_film"/>
     <fragment
+        android:id="@+id/fragment_favorit"
+        android:name="id.chainlizard.saltiesmovie.ui.watchlist.ContainerWatchListFragment"
+        android:label="List"
+        tools:layout="@layout/fragment_container_watch_list"/>
+    <fragment
         android:id="@+id/fragment_movie_detail"
         android:name="id.chainlizard.saltiesmovie.ui.MovieDetailFragment"
         android:label="Detail"
