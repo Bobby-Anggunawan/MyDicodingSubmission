@@ -11,7 +11,7 @@ import id.chainlizard.saltiesmovie.data.MyRepository
 import javax.inject.Inject
 
 @HiltViewModel
-class TVWatchListVM @Inject constructor(private val repository: MyRepository): ViewModel() {
+class TVWatchListVM @Inject constructor(private val repository: MyRepository) : ViewModel() {
     val pagingItems =
         Pager(config = PagingConfig(pageSize = 1, prefetchDistance = 2),
             pagingSourceFactory = { repository.tvWatchListPS }

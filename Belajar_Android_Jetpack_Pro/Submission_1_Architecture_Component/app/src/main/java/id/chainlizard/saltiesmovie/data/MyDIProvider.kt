@@ -21,9 +21,10 @@ class MyDIProvider {
 
     @Provides
     @Singleton
-    fun providerDatabase(@ApplicationContext context: Context): MyDatabase.AppDatabase = Room.databaseBuilder(
-        context,
-        MyDatabase.AppDatabase::class.java, "SaltiesMovieDB"
-    ).build()
+    fun providerDatabase(@ApplicationContext context: Context): MyDatabase.AppDatabase =
+        Room.databaseBuilder(
+            context,
+            MyDatabase.AppDatabase::class.java, "SaltiesMovieDB"
+        ).build()
 
 }

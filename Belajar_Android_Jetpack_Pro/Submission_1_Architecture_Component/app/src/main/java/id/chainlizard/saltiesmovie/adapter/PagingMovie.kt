@@ -11,22 +11,34 @@ import id.chainlizard.saltiesmovie.databinding.ItemListDiscoverBinding
 
 object PagingMovie {
     object ItemComparator : DiffUtil.ItemCallback<MovieDiscoverMod.MoviePage_List>() {
-        override fun areItemsTheSame(oldItem: MovieDiscoverMod.MoviePage_List, newItem: MovieDiscoverMod.MoviePage_List): Boolean {
+        override fun areItemsTheSame(
+            oldItem: MovieDiscoverMod.MoviePage_List,
+            newItem: MovieDiscoverMod.MoviePage_List
+        ): Boolean {
             return oldItem.id == newItem.id
         }
-        override fun areContentsTheSame(oldItem: MovieDiscoverMod.MoviePage_List, newItem: MovieDiscoverMod.MoviePage_List): Boolean {
+
+        override fun areContentsTheSame(
+            oldItem: MovieDiscoverMod.MoviePage_List,
+            newItem: MovieDiscoverMod.MoviePage_List
+        ): Boolean {
             return oldItem == newItem
         }
     }
 
-    class MyPagingAdapter(private val click: myItemClickListener): PagingDataAdapter<MovieDiscoverMod.MoviePage_List, MyPagingAdapter.MyViewHolder>(
-        ItemComparator
-    ){
+    class MyPagingAdapter(private val click: myItemClickListener) :
+        PagingDataAdapter<MovieDiscoverMod.MoviePage_List, MyPagingAdapter.MyViewHolder>(
+            ItemComparator
+        ) {
 
         data class myItemClickListener(val clickListener: (data: MovieDiscoverMod.MoviePage_List) -> Unit)
 
-        class MyViewHolder(private var binding: ItemListDiscoverBinding): RecyclerView.ViewHolder(binding.root){
-            fun bind(item: MovieDiscoverMod.MoviePage_List, clickListener: (MovieDiscoverMod.MoviePage_List) -> Unit){
+        class MyViewHolder(private var binding: ItemListDiscoverBinding) :
+            RecyclerView.ViewHolder(binding.root) {
+            fun bind(
+                item: MovieDiscoverMod.MoviePage_List,
+                clickListener: (MovieDiscoverMod.MoviePage_List) -> Unit
+            ) {
                 binding.judul.text = item.original_title
                 binding.overview.text = item.overview
                 Glide.with(itemView)
@@ -40,13 +52,14 @@ object PagingMovie {
 
         override fun onBindViewHolder(holder: MyViewHolder, position: Int) {
             val currentItem = getItem(position)
-            if(currentItem != null){
+            if (currentItem != null) {
                 holder.bind(currentItem, click.clickListener)
             }
         }
 
         override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MyViewHolder {
-            val binding = ItemListDiscoverBinding.inflate(LayoutInflater.from(parent.context), parent, false)
+            val binding =
+                ItemListDiscoverBinding.inflate(LayoutInflater.from(parent.context), parent, false)
             return MyViewHolder(binding)
         }
     }

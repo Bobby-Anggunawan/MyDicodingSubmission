@@ -15,7 +15,8 @@ object MyObj {
     enum class RequestType {
         discoverMovie, discoverTV, detailMovie, detailTV
     }
-    enum class pageType{
+
+    enum class pageType {
         watchList, Discover
     }
 

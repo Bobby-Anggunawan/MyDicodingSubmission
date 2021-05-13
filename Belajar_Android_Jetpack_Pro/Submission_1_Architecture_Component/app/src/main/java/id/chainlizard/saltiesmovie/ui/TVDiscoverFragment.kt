@@ -12,10 +12,9 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import dagger.hilt.android.AndroidEntryPoint
 import id.chainlizard.saltiesmovie.R
+import id.chainlizard.saltiesmovie.adapter.MovieLoadState
 import id.chainlizard.saltiesmovie.adapter.PagingTV
 import id.chainlizard.saltiesmovie.functions.MyObj
-import id.chainlizard.saltiesmovie.functions.SetUpRecyclerView
-import id.chainlizard.saltiesmovie.viewmodel.MovieWatchListVM
 import id.chainlizard.saltiesmovie.viewmodel.TVDiscoverVM
 import id.chainlizard.saltiesmovie.viewmodel.TVWatchListVM
 
@@ -38,30 +37,35 @@ class TVDiscoverFragment(private val type: MyObj.pageType) : Fragment() {
         myRecyclerView = view.findViewById(R.id.tvList)
         mySpin = view.findViewById(R.id.mySpin)
 
-        val myAdapter = PagingTV.MyPagingAdapter(PagingTV.MyPagingAdapter.myItemClickListener{
+        val myAdapter = PagingTV.MyPagingAdapter(PagingTV.MyPagingAdapter.myItemClickListener {
             MyObj.writeIdPreference(it.id, requireActivity())
             findNavController().navigate(R.id.fragment_t_v_detail)
         })
         myRecyclerView.setHasFixedSize(true)
-        myRecyclerView.adapter = myAdapter
+        myRecyclerView.adapter = myAdapter.withLoadStateHeaderAndFooter(
+            header = MovieLoadState.MyLoadStateAdapter(myAdapter::retry),
+            footer = MovieLoadState.MyLoadStateAdapter(myAdapter::retry)
+        )
         myRecyclerView.layoutManager = LinearLayoutManager(requireContext())
-        if(type == MyObj.pageType.Discover){
+        if (type == MyObj.pageType.Discover) {
             val model: TVDiscoverVM by viewModels()
             model.pagingItems.observe(viewLifecycleOwner, {
-                if(mySpin.visibility != View.GONE){
+                if (mySpin.visibility != View.GONE) {
+                    mySpin.visibility = View.GONE
+                }
+                myAdapter.submitData(viewLifecycleOwner.lifecycle, it)
+            })
+        } else {
+            val model: TVWatchListVM by viewModels()
+            model.pagingItems.observe(viewLifecycleOwner, {
+                if (mySpin.visibility != View.GONE) {
                     mySpin.visibility = View.GONE
                 }
                 myAdapter.submitData(viewLifecycleOwner.lifecycle, it)
             })
         }
-        else{
-            val model: TVWatchListVM by viewModels()
-            model.pagingItems.observe(viewLifecycleOwner, {
-                if(mySpin.visibility != View.GONE){
-                    mySpin.visibility = View.GONE
-                }
-                myAdapter.submitData(viewLifecycleOwner.lifecycle, it)
-            })
+        if (!MyObj.isOnline(requireActivity())) {
+            MyObj.buildMyErrorDialog(requireContext(), "Network Error")
         }
     }
 }

@@ -1,18 +1,16 @@
-package id.chainlizard.saltiesmovie.ui.watchlist
+package id.chainlizard.saltiesmovie.ui
 
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.appcompat.app.AppCompatActivity
+import androidx.fragment.app.Fragment
 import androidx.viewpager2.widget.ViewPager2
 import com.google.android.material.tabs.TabLayout
 import id.chainlizard.saltiesmovie.R
 import id.chainlizard.saltiesmovie.functions.MyObj
 import id.chainlizard.saltiesmovie.functions.SetUpTabView
-import id.chainlizard.saltiesmovie.ui.MovieDiscoverFragment
-import id.chainlizard.saltiesmovie.ui.TVDiscoverFragment
 
 class ContainerWatchListFragment : Fragment() {
 
@@ -29,7 +27,10 @@ class ContainerWatchListFragment : Fragment() {
         val viewPager: ViewPager2 = view.findViewById(R.id.view_pager)
         val tabs: TabLayout = view.findViewById(R.id.tabs)
         val ttl = arrayOf("Movie", "Tv")
-        val alist = arrayListOf(MovieDiscoverFragment(MyObj.pageType.watchList), TVDiscoverFragment(MyObj.pageType.watchList))
+        val alist = arrayListOf(
+            MovieDiscoverFragment(MyObj.pageType.watchList),
+            TVDiscoverFragment(MyObj.pageType.watchList)
+        )
         SetUpTabView.setUp(requireActivity() as AppCompatActivity, viewPager, tabs, 2, ttl, alist)
     }
 }

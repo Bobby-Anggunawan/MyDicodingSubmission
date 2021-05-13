@@ -1,8 +1,5 @@
 package id.chainlizard.saltiesmovie.data
 
-import android.util.Log
-import androidx.paging.DataSource
-import androidx.room.Room
 import id.chainlizard.saltiesmovie.data.model.MovieDetailMod
 import id.chainlizard.saltiesmovie.data.model.MovieDiscoverMod
 import id.chainlizard.saltiesmovie.data.model.TVDetailMod
@@ -13,12 +10,17 @@ import id.chainlizard.saltiesmovie.functions.MyDatabase
 import id.chainlizard.saltiesmovie.functions.MyIdlingResource
 import id.chainlizard.saltiesmovie.functions.MyObj
 import id.chainlizard.saltiesmovie.functions.Networking
-import kotlinx.coroutines.*
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.async
+import kotlinx.coroutines.runBlocking
 import javax.inject.Inject
 import javax.inject.Singleton
 
 @Singleton
-class MyRepository @Inject constructor(private var myNetwork: Networking.MyNetwork, private var db: MyDatabase.AppDatabase) {
+class MyRepository @Inject constructor(
+    private var myNetwork: Networking.MyNetwork,
+    private var db: MyDatabase.AppDatabase
+) {
 
     val moviePS = MovieDiscoverPS(this, MyObj.pageType.Discover)
     val movieWatchListPS = MovieDiscoverPS(this, MyObj.pageType.watchList)
@@ -45,7 +47,7 @@ class MyRepository @Inject constructor(private var myNetwork: Networking.MyNetwo
     fun getMovieDiscover(page: Int): MovieDiscoverMod.MoviesPage {
         MyIdlingResource.increment()
         myNetwork.movieDiscoverReq.addQueryParamater("page", "$page")
-        val textJSON =  myNetwork.movieDiscoverReq.runSync()
+        val textJSON = myNetwork.movieDiscoverReq.runSync()
 
         MyIdlingResource.decrement()
         return MyObj.parseJson(
@@ -78,7 +80,7 @@ class MyRepository @Inject constructor(private var myNetwork: Networking.MyNetwo
         return MyObj.parseJson(textJSON, MyObj.RequestType.discoverTV) as TVDiscoverMod.TVPage
     }
 
-    fun getMovieWLAsc(page: Int): List<MovieDetailMod.MovieFavoriteDetail>{
+    fun getMovieWLAsc(page: Int): List<MovieDetailMod.MovieFavoriteDetail> {
         MyIdlingResource.increment()
         lateinit var waitRes: List<MovieDetailMod.MovieFavoriteDetail>
         runBlocking {
@@ -88,7 +90,8 @@ class MyRepository @Inject constructor(private var myNetwork: Networking.MyNetwo
         MyIdlingResource.decrement()
         return waitRes
     }
-    fun getTVWLAsc(page: Int): List<TVDetailMod.TVFavoriteDetail>{
+
+    fun getTVWLAsc(page: Int): List<TVDetailMod.TVFavoriteDetail> {
         MyIdlingResource.increment()
         lateinit var waitRes: List<TVDetailMod.TVFavoriteDetail>
         runBlocking {
@@ -98,7 +101,8 @@ class MyRepository @Inject constructor(private var myNetwork: Networking.MyNetwo
         MyIdlingResource.decrement()
         return waitRes
     }
-    fun countMovieWL(): Int{
+
+    fun countMovieWL(): Int {
         MyIdlingResource.increment()
         var waitRes: Int
         runBlocking {
@@ -108,7 +112,8 @@ class MyRepository @Inject constructor(private var myNetwork: Networking.MyNetwo
         MyIdlingResource.decrement()
         return waitRes
     }
-    fun countTVWL(): Int{
+
+    fun countTVWL(): Int {
         MyIdlingResource.increment()
         var waitRes: Int
         runBlocking {
@@ -118,7 +123,8 @@ class MyRepository @Inject constructor(private var myNetwork: Networking.MyNetwo
         MyIdlingResource.decrement()
         return waitRes
     }
-    fun movieExist(id: Int): Boolean{
+
+    fun movieExist(id: Int): Boolean {
         MyIdlingResource.increment()
         var waitRes: Boolean
         runBlocking {
@@ -128,7 +134,8 @@ class MyRepository @Inject constructor(private var myNetwork: Networking.MyNetwo
         MyIdlingResource.decrement()
         return waitRes
     }
-    fun tvExist(id: Int): Boolean{
+
+    fun tvExist(id: Int): Boolean {
         MyIdlingResource.increment()
         var waitRes: Boolean
         runBlocking {
@@ -138,7 +145,8 @@ class MyRepository @Inject constructor(private var myNetwork: Networking.MyNetwo
         MyIdlingResource.decrement()
         return waitRes
     }
-    fun addMovie(movie: MovieDetailMod.MovieFavoriteDetail){
+
+    fun addMovie(movie: MovieDetailMod.MovieFavoriteDetail) {
         MyIdlingResource.increment()
         runBlocking {
             val getDB = async(context = Dispatchers.IO) { myDB.insertMovie(movie) }
@@ -146,7 +154,8 @@ class MyRepository @Inject constructor(private var myNetwork: Networking.MyNetwo
         }
         MyIdlingResource.decrement()
     }
-    fun addTV(tv: TVDetailMod.TVFavoriteDetail){
+
+    fun addTV(tv: TVDetailMod.TVFavoriteDetail) {
         MyIdlingResource.increment()
         runBlocking {
             val getDB = async(context = Dispatchers.IO) { myDB.insertTV(tv) }
@@ -154,15 +163,17 @@ class MyRepository @Inject constructor(private var myNetwork: Networking.MyNetwo
         }
         MyIdlingResource.decrement()
     }
-    fun removeMovie(movie: MovieDetailMod.MovieFavoriteDetail){
+
+    fun removeMovie(movie: MovieDetailMod.MovieFavoriteDetail) {
         MyIdlingResource.increment()
         runBlocking {
-            val getDB = async(context = Dispatchers.IO) {myDB.deleteMovie(movie) }
+            val getDB = async(context = Dispatchers.IO) { myDB.deleteMovie(movie) }
             getDB.await()
         }
         MyIdlingResource.decrement()
     }
-    fun removeTV(tv: TVDetailMod.TVFavoriteDetail){
+
+    fun removeTV(tv: TVDetailMod.TVFavoriteDetail) {
         MyIdlingResource.increment()
         runBlocking {
             val getDB = async(context = Dispatchers.IO) { myDB.deleteTV(tv) }

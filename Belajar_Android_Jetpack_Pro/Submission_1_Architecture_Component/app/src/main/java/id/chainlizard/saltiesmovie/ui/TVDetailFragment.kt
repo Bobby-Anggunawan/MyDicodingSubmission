@@ -78,10 +78,9 @@ class TVDetailFragment : Fragment() {
             mySpin.visibility = View.GONE
         })
         model.getFavorit(TVID).observe(requireActivity(), {
-            if(it == true){
+            if (it == true) {
                 favBtn.setImageResource(R.drawable.ic_favorite_white_18dp)
-            }
-            else{
+            } else {
                 favBtn.setImageResource(R.drawable.ic_favorite_border_white_18dp)
             }
         })

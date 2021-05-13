@@ -7,9 +7,6 @@ import id.chainlizard.saltiesmovie.data.MyRepository
 import id.chainlizard.saltiesmovie.data.model.MovieDetailMod
 import id.chainlizard.saltiesmovie.data.model.TVDetailMod
 import id.chainlizard.saltiesmovie.functions.MyObj
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.GlobalScope
-import kotlinx.coroutines.launch
 import org.junit.Assert
 import org.junit.Before
 import org.junit.Rule
@@ -84,9 +81,33 @@ class ModelTest {
     }
 
     @Test
-    fun testDBMovie(){
-        val movie1 = MovieDetailMod.MovieFavoriteDetail(6385, "hauhi", "abc", "def", "ghi", 1.0, "afa", "in", "finish", 10000, 500)
-        val movie2 = MovieDetailMod.MovieFavoriteDetail(8241, "ausi", "bduis", "sduiue", "sdbuui", 1.0, "sdbiu", "in", "finish", 10000, 500)
+    fun testDBMovie() {
+        val movie1 = MovieDetailMod.MovieFavoriteDetail(
+            6385,
+            "hauhi",
+            "abc",
+            "def",
+            "ghi",
+            1.0,
+            "afa",
+            "in",
+            "finish",
+            10000,
+            500
+        )
+        val movie2 = MovieDetailMod.MovieFavoriteDetail(
+            8241,
+            "ausi",
+            "bduis",
+            "sduiue",
+            "sdbuui",
+            1.0,
+            "sdbiu",
+            "in",
+            "finish",
+            10000,
+            500
+        )
         repo.addMovie(movie1)
         repo.addMovie(movie2)
         Assert.assertTrue(repo.movieExist(movie1.id))
@@ -95,10 +116,37 @@ class ModelTest {
         repo.removeMovie(movie1)
         Assert.assertEquals(repo.countMovieWL(), 1)
     }
+
     @Test
-    fun testDBTV(){
-        val tv1 = TVDetailMod.TVFavoriteDetail(2123, "jbidi", "uauish", "huahsui", "buaui", 1.0, 3, 5, "asuh", "hsuhiu", "iuahsu", "ugais")
-        val tv2 = TVDetailMod.TVFavoriteDetail(8193, "guigs", "asvu", "awguuv", "wgauy", 1.0, 3, 5, "gewigi", "adbi", "advuy", "eafaefdda")
+    fun testDBTV() {
+        val tv1 = TVDetailMod.TVFavoriteDetail(
+            2123,
+            "jbidi",
+            "uauish",
+            "huahsui",
+            "buaui",
+            1.0,
+            3,
+            5,
+            "asuh",
+            "hsuhiu",
+            "iuahsu",
+            "ugais"
+        )
+        val tv2 = TVDetailMod.TVFavoriteDetail(
+            8193,
+            "guigs",
+            "asvu",
+            "awguuv",
+            "wgauy",
+            1.0,
+            3,
+            5,
+            "gewigi",
+            "adbi",
+            "advuy",
+            "eafaefdda"
+        )
         repo.addTV(tv1)
         repo.addTV(tv2)
         Assert.assertTrue(repo.tvExist(tv1.id))

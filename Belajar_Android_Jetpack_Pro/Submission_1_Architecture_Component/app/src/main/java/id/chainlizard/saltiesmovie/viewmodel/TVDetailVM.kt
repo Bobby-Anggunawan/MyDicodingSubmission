@@ -10,7 +10,6 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import dagger.hilt.android.lifecycle.HiltViewModel
 import id.chainlizard.saltiesmovie.data.MyRepository
-import id.chainlizard.saltiesmovie.data.model.MovieDetailMod
 import id.chainlizard.saltiesmovie.data.model.TVDetailMod
 import id.chainlizard.saltiesmovie.functions.MyObj
 import kotlinx.coroutines.Dispatchers
@@ -23,16 +22,15 @@ class TVDetailVM @Inject constructor(private val repository: MyRepository) : Vie
     private var TV: MutableLiveData<TVDetailMod.TVDetail>? = null
     private var favorit: MutableLiveData<Boolean>? = null
 
-    fun initFavorit(id: Int){
-        if(repository.tvExist(id)){
+    fun initFavorit(id: Int) {
+        if (repository.tvExist(id)) {
             favorit?.postValue(true)
-        }
-        else{
+        } else {
             favorit?.postValue(false)
         }
     }
 
-    fun getFavorit(id: Int): LiveData<Boolean>{
+    fun getFavorit(id: Int): LiveData<Boolean> {
         if (favorit == null) {
             favorit = MutableLiveData()
             initFavorit(id)
@@ -40,15 +38,14 @@ class TVDetailVM @Inject constructor(private val repository: MyRepository) : Vie
         return favorit as MutableLiveData<Boolean>
     }
 
-    fun postFavorit(id: Int){
+    fun postFavorit(id: Int) {
 
         val tv = repository.getTVDetail(id)
         val conTV = TVDetailMod.convertToFav(tv)
-        if(repository.tvExist(tv.id)){
+        if (repository.tvExist(tv.id)) {
             repository.removeTV(conTV)
             favorit?.postValue(false)
-        }
-        else{
+        } else {
             repository.addTV(conTV)
             favorit?.postValue(true)
         }

@@ -5,16 +5,46 @@ import androidx.room.PrimaryKey
 import id.chainlizard.saltiesmovie.functions.MyObj
 
 object TVDetailMod {
-    fun toDisList(real: List<TVFavoriteDetail>): List<TVDiscoverMod.TVPage_List>{
-            val ret = arrayListOf<TVDiscoverMod.TVPage_List>()
-            real.forEach {
-                    ret.add(TVDiscoverMod.TVPage_List("", it.first_air_date, arrayListOf(), it.id, it.name, arrayListOf(), it.original_language, it.name, it.overview, 0.0, it.poster_path, it.vote_average, 1))
-            }
-            return ret
-    }
-        fun convertToFav(real: TVDetail): TVFavoriteDetail{
-                return TVFavoriteDetail(real.id, real.poster_path, real.name, real.tagline, real.overview, real.vote_average, real.number_of_seasons, real.number_of_episodes, real.first_air_date, real.last_air_date, real.original_language, real.type)
+    fun toDisList(real: List<TVFavoriteDetail>): List<TVDiscoverMod.TVPage_List> {
+        val ret = arrayListOf<TVDiscoverMod.TVPage_List>()
+        real.forEach {
+            ret.add(
+                    TVDiscoverMod.TVPage_List(
+                            "",
+                            it.first_air_date,
+                            arrayListOf(),
+                            it.id,
+                            it.name,
+                            arrayListOf(),
+                            it.original_language,
+                            it.name,
+                            it.overview,
+                            0.0,
+                            it.poster_path,
+                            it.vote_average,
+                            1
+                    )
+            )
         }
+        return ret
+    }
+
+    fun convertToFav(real: TVDetail): TVFavoriteDetail {
+        return TVFavoriteDetail(
+                real.id,
+                real.poster_path,
+                real.name,
+                real.tagline,
+                real.overview,
+                real.vote_average,
+                real.number_of_seasons,
+                real.number_of_episodes,
+                real.first_air_date,
+                real.last_air_date,
+                real.original_language,
+                real.type
+        )
+    }
 
     @Entity
     data class TVFavoriteDetail(

@@ -25,10 +25,6 @@ import org.junit.runner.RunWith
 @RunWith(AndroidJUnit4ClassRunner::class)
 class OnlineTest {
 
-    //todo kadang suskes kadang enggak.
-    //todo Kalo gak sukses penyebabnya karena error idling timeout
-    //todo biasanya gak sukses saat pertamakali dijalankan. Setelahnya selalu berhasil
-
     @Before
     fun setup() {
         ActivityScenario.launch(MainActivity::class.java)

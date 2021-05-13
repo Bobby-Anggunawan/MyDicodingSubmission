@@ -11,7 +11,6 @@ import androidx.lifecycle.ViewModel
 import dagger.hilt.android.lifecycle.HiltViewModel
 import id.chainlizard.saltiesmovie.data.MyRepository
 import id.chainlizard.saltiesmovie.data.model.MovieDetailMod
-import id.chainlizard.saltiesmovie.data.model.MovieDiscoverMod
 import id.chainlizard.saltiesmovie.functions.MyObj
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
@@ -23,16 +22,15 @@ class MovieDetailVM @Inject constructor(private val repository: MyRepository) : 
     private var movie: MutableLiveData<MovieDetailMod.MovieDetail>? = null
     private var favorit: MutableLiveData<Boolean>? = null
 
-    fun initFavorit(id: Int){
-        if(repository.movieExist(id)){
+    fun initFavorit(id: Int) {
+        if (repository.movieExist(id)) {
             favorit?.postValue(true)
-        }
-        else{
+        } else {
             favorit?.postValue(false)
         }
     }
 
-    fun getFavorit(id: Int): LiveData<Boolean>{
+    fun getFavorit(id: Int): LiveData<Boolean> {
         if (favorit == null) {
             favorit = MutableLiveData()
             initFavorit(id)
@@ -40,15 +38,14 @@ class MovieDetailVM @Inject constructor(private val repository: MyRepository) : 
         return favorit as MutableLiveData<Boolean>
     }
 
-    fun postFavorit(id: Int){
+    fun postFavorit(id: Int) {
 
         val movie = repository.getMovieDetail(id)
         val conMovie = MovieDetailMod.convertToFav(movie)
-        if(repository.movieExist(movie.id)){
+        if (repository.movieExist(movie.id)) {
             repository.removeMovie(conMovie)
             favorit?.postValue(false)
-        }
-        else{
+        } else {
             repository.addMovie(conMovie)
             favorit?.postValue(true)
         }

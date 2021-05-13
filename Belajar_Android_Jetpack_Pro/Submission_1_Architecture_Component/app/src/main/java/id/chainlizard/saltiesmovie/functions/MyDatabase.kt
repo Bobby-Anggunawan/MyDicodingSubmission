@@ -1,11 +1,8 @@
 package id.chainlizard.saltiesmovie.functions
 
-import androidx.paging.DataSource
 import androidx.room.*
 import id.chainlizard.saltiesmovie.data.model.MovieDetailMod
-import id.chainlizard.saltiesmovie.data.model.MovieDiscoverMod
 import id.chainlizard.saltiesmovie.data.model.TVDetailMod
-import id.chainlizard.saltiesmovie.data.model.TVDiscoverMod
 
 object MyDatabase {
     @Dao
@@ -41,7 +38,12 @@ object MyDatabase {
         fun deleteTV(theTV: TVDetailMod.TVFavoriteDetail)
     }
 
-    @Database(entities = arrayOf(MovieDetailMod.MovieFavoriteDetail::class, TVDetailMod.TVFavoriteDetail::class), version = 1)
+    @Database(
+        entities = arrayOf(
+            MovieDetailMod.MovieFavoriteDetail::class,
+            TVDetailMod.TVFavoriteDetail::class
+        ), version = 1
+    )
     abstract class AppDatabase : RoomDatabase() {
         abstract fun myDB(): MyDao
     }
